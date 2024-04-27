@@ -8,7 +8,7 @@ For lcoal development, you can start the application using spring-boot.
 
 Use ```docker compose up``` to start the database instance
 
-New database migration will be found in the [res](./res) folder (please keep the file format for easy usage)
+New database migration will be found in the [res](res) folder (please keep the file format for easy usage)
 
 ## Contribution
 
