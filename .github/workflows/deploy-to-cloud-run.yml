@@ -7,7 +7,7 @@ on:
 
 env:
   SERVICE_NAME: attend-client
-  IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.SERVICE_NAME }}
+  IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/attend-client
   REGION: europe-west1
 
 jobs:
