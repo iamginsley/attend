@@ -93,21 +93,23 @@ INSERT INTO code_type (name) VALUES ('check-in'), ('check-out');
 
 -- Session management for code generation and check-in
 CREATE TABLE course_code (
-    courseId INT NOT NULL PRIMARY KEY ,
-    type INT NOT NULL PRIMARY KEY,
+    courseId INT NOT NULL,
+    type INT NOT NULL,
     time DATETIME NOT NULL,
     timeOffset INT NOT NULL,
     attendanceCode VARCHAR(20),
+    PRIMARY KEY (courseId, type),
     FOREIGN KEY (courseId) REFERENCES course(id),
     FOREIGN KEY (type) REFERENCES code_type(id)
 );
 
 -- Tracking user code scans
 CREATE TABLE code_scan (
-    userId INT NOT NULL PRIMARY KEY,
-    courseId INT NOT NULL PRIMARY KEY,
-    type INT NOT NULL PRIMARY KEY,
+    userId INT NOT NULL,
+    courseId INT NOT NULL,
+    type INT NOT NULL,
     time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (userId, courseId, type),
     FOREIGN KEY (userId) REFERENCES user(id),
     FOREIGN KEY (courseId, type) REFERENCES course_code(courseId, type)
 );
@@ -115,12 +117,13 @@ CREATE TABLE code_scan (
 
 -- Reasons for late or no code scan
 CREATE TABLE code_scan_unexpected (
-    userId INT NOT NULL PRIMARY KEY,
-    courseId INT NOT NULL PRIMARY KEY,
-    type INT NOT NULL PRIMARY KEY,
+    userId INT NOT NULL,
+    courseId INT NOT NULL,
+    type INT NOT NULL,
     reason INT NOT NULL,
     proofDocument VARCHAR(255),
     accepted BOOLEAN NOT NULL,
+    PRIMARY KEY (userId, courseId, type),
     FOREIGN KEY (userId) REFERENCES user(id),
     FOREIGN KEY (courseId, type) REFERENCES course_code(courseId, type),
     FOREIGN KEY (reason) REFERENCES absence_category(id)
