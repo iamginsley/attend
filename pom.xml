@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <!-- Project from https://start.vaadin.com/project/5a2407a5-4ba0-4dd9-99fe-84fb2dec8588 -->
     <groupId>com.example.application</groupId>
-    <artifactId>flowcrmtutorial</artifactId>
-    <name>flowcrmtutorial</name>
+    <artifactId>attend-vaadin</artifactId>
+    <name>attend-vaadin</name>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
