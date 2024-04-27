@@ -1,50 +1,127 @@
 USE `attend-db`;
 
-create table role (
-    id int primary key auto_increment,
-    name varchar(50) not null
+-- Roles for different types of users
+CREATE TABLE role (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL
 );
 
-insert into role (name) values ('admin'), ('student'), ('lecturer');
+INSERT INTO role (name) VALUES ('admin'), ('student'), ('lecturer');
 
-create table user (
-    id int primary key auto_increment,
-    name varchar(50) not null,
-    surname varchar(50) not null,
-    username varchar(50) not null,
-    password varchar(50) not null,
-    email varchar(50) not null,
-    studentNumber varchar(50),
-    role int not null,
-    foreign key (role) references role(id)
+-- User details
+CREATE TABLE user (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    studentNumber VARCHAR(50),
+    roleId INT NOT NULL,
+    FOREIGN KEY (roleId) REFERENCES role(id)
 );
 
-create table faculty (
-    id int primary key auto_increment,
-    name varchar(50) not null
+-- Faculty details
+CREATE TABLE faculty (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL
 );
 
-create table user_faculty
-(
-    userId       int not null primary key,
-    facultyId    int not null primary key,
-    foreign key (userId) references user (id),
-    foreign key (facultyId) references faculty (id)
+-- User to faculty mapping
+CREATE TABLE user_faculty (
+    userId INT NOT NULL,
+    facultyId INT NOT NULL,
+    PRIMARY KEY (userId, facultyId),
+    FOREIGN KEY (userId) REFERENCES user(id),
+    FOREIGN KEY (facultyId) REFERENCES faculty(id)
 );
 
-create table course (
-    id int primary key auto_increment,
-    name varchar(50) not null,
-    lecturerId int not null primary key,
-    universityId int not null primary key,
-    foreign key (lecturerId) references user(id),
-    foreign key (universityId) references faculty(id)
+-- Courses offered
+CREATE TABLE course (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    lecturerId INT NOT NULL,
+    facultyId INT NOT NULL,
+    FOREIGN KEY (lecturerId) REFERENCES user(id),
+    FOREIGN KEY (facultyId) REFERENCES faculty(id)
 );
 
-create table user_course
-(
-    userId       int not null primary key,
-    courseId     int not null primary key,
-    foreign key (userId) references user (id),
-    foreign key (courseId) references course (id)
+-- User to course mapping
+CREATE TABLE user_course (
+    userId INT NOT NULL,
+    courseId INT NOT NULL,
+    PRIMARY KEY (userId, courseId),
+    FOREIGN KEY (userId) REFERENCES user(id),
+    FOREIGN KEY (courseId) REFERENCES course(id)
+);
+
+-- Categories of absence reasons
+CREATE TABLE absence_category (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL
+);
+
+INSERT INTO absence_category (name) VALUES ('illness'), ('family emergency'), ('personal reasons');
+
+-- Types of attendance
+CREATE TABLE attendance_type (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL
+);
+
+INSERT INTO attendance_type (name) VALUES ('present'), ('absent'), ('excused');
+
+-- Attendance records
+CREATE TABLE attendance (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    courseId INT NOT NULL,
+    userId INT NOT NULL,
+    attendanceTypeId INT NOT NULL,
+    date DATE NOT NULL,
+    time TIME NOT NULL,
+    FOREIGN KEY (courseId) REFERENCES course(id),
+    FOREIGN KEY (userId) REFERENCES user(id),
+    FOREIGN KEY (attendanceTypeId) REFERENCES attendance_type(id)
+);
+
+CREATE TABLE code_type (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL
+);
+
+INSERT INTO code_type (name) VALUES ('check-in'), ('check-out');
+
+-- Session management for code generation and check-in
+CREATE TABLE course_code (
+    courseId INT NOT NULL PRIMARY KEY ,
+    type INT NOT NULL PRIMARY KEY,
+    time DATETIME NOT NULL,
+    timeOffset INT NOT NULL,
+    attendanceCode VARCHAR(20),
+    FOREIGN KEY (courseId) REFERENCES course(id),
+    FOREIGN KEY (type) REFERENCES code_type(id)
+);
+
+-- Tracking user code scans
+CREATE TABLE code_scan (
+    userId INT NOT NULL PRIMARY KEY,
+    courseId INT NOT NULL PRIMARY KEY,
+    type INT NOT NULL PRIMARY KEY,
+    time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES user(id),
+    FOREIGN KEY (courseId, type) REFERENCES course_code(courseId, type)
+);
+
+
+-- Reasons for late or no code scan
+CREATE TABLE code_scan_unexpected (
+    userId INT NOT NULL PRIMARY KEY,
+    courseId INT NOT NULL PRIMARY KEY,
+    type INT NOT NULL PRIMARY KEY,
+    reason INT NOT NULL,
+    proofDocument VARCHAR(255),
+    accepted BOOLEAN NOT NULL,
+    FOREIGN KEY (userId) REFERENCES user(id),
+    FOREIGN KEY (courseId, type) REFERENCES course_code(courseId, type),
+    FOREIGN KEY (reason) REFERENCES absence_category(id)
 );
