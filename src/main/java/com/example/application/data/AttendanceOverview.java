@@ -9,7 +9,7 @@ import org.hibernate.annotations.Immutable;
 public class AttendanceOverview {
     @Id
     @Column(name = "userId")
-    private Long userId;
+    private int userId;
 
     @Column(name = "userName")
     private String userName;
@@ -18,13 +18,13 @@ public class AttendanceOverview {
     private String userSurname;
 
     @Column(name = "parentCourseId")
-    private Long parentCourseId;
+    private int parentCourseId;
 
     @Column(name = "parentCourseName")
     private String parentCourseName;
 
     @Column(name = "facultyId")
-    private Long facultyId;
+    private int facultyId;
 
     @Column(name = "facultyName")
     private String facultyName;
@@ -36,10 +36,10 @@ public class AttendanceOverview {
     private Boolean isExempt;
 
     @Column(name = "totalSessions")
-    private Long totalSessions;
+    private int totalSessions;
 
     @Column(name = "attendedSessions")
-    private Long attendedSessions;
+    private int attendedSessions;
 
     @Column(name = "meetsAttendanceRequirements")
     private Boolean meetsAttendanceRequirements;

@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 public class CodeType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     private String name;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
