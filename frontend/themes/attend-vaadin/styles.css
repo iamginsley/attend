@@ -1,0 +1,19 @@
+.view-header {
+    padding: 5px;
+    width: 50%;
+}
+.dashboard-entry {
+    padding: 50px;
+    border: solid black 1px;
+}
+
+.dashboard-entry h1 {
+    width: 50%;
+}
+
+.dashboard-body {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+}
