@@ -25,7 +25,6 @@ public class Dashboard extends VerticalLayout {
         HorizontalLayout bodyLayout = new HorizontalLayout();
 
         bodyLayout.addClassName("dashboard-body");
-        bodyLayout.getStyle().set("flex-wrap", "wrap");
 
         bodyLayout.add(
                 new TotalStudents(),

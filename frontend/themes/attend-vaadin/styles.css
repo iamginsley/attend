@@ -1,14 +1,54 @@
-.view-header {
-    padding: 5px;
-    width: 50%;
-}
-.dashboard-entry {
-    padding: 50px;
-    border: solid black 1px;
+.app-header {
+    background-color: #FAFBFB;
+    border-bottom: 1px solid #EAEAEA;
+    display: flex;
+    align-items: center; /* Vertically align the elements */
+    justify-content: space-between; /* Horizontally space out the elements */
+    padding: 0 16px; /* Add some horizontal padding */
 }
 
-.dashboard-entry h1 {
+.app-header-icon {
+    margin-right: 8px; /* Add some space to the right of the icon */
+}
+
+.app-drawer {
+    background-color: #FAFBFB;
+    border-right: 1px solid #EAEAEA;
+    height: 100vh;
+    flex-direction: column; /* Add this line */
+}
+
+.app-drawer a {
+    display: flex;
+    align-items: center; /* Vertically align the icon and the text */
+    padding: 8px 16px; /* Add some padding */
+    color: #000000; /* Change the color of the text */
+    text-decoration: none;
+}
+
+.app-drawer a:hover {
+    background-color: #F3F4F6; /* Add a background color on hover */
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.app-drawer a.router-link-active {
+    background-color: #4CAF50; /* Change the background color of the active route */
+    font-weight: bold;
+}
+
+.view-header {
+    padding: 16px;
     width: 50%;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.dashboard-entry {
+    border: 1px solid #E8E9ED;
+    border-radius: 5px;
+    padding: 16px;
+    margin-bottom: 16px;
 }
 
 .dashboard-body {
@@ -16,4 +56,10 @@
     flex-wrap: wrap;
     flex-direction: row;
     width: 100%;
+}
+
+.dashboard-body > * {
+    flex-basis: 25%;
+    flex-grow: 1;
+    flex-shrink: 0;
 }
