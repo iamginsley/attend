@@ -19,4 +19,6 @@ public class Faculty {
             joinColumns = @JoinColumn(name = "facultyId"),
             inverseJoinColumns = @JoinColumn(name = "userId"))
     private Set<User> students;
+
+    public Faculty() {}
 }
