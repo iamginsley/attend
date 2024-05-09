@@ -1,39 +1,53 @@
+vaadin-app-layout::part(navbar) {
+    background-color: white;
+    background-image: unset;
+}
+
 .app-header {
-    background-color: #FAFBFB;
-    border-bottom: 1px solid #EAEAEA;
-    display: flex;
-    align-items: center; /* Vertically align the elements */
-    justify-content: space-between; /* Horizontally space out the elements */
-    padding: 0 16px; /* Add some horizontal padding */
+    background-color: white;
+    height: 128px;
+    margin-bottom: 54px;
 }
 
 .app-header-icon {
-    margin-right: 8px; /* Add some space to the right of the icon */
+    margin-right: 8px;
+}
+
+.app-header-profile {
+    margin-left: auto;
+    margin-right: 35px;
+    margin-top: 25px;
+
+    width: 60px;
+    height: 60px;
+
+    filter: drop-shadow(0px 0px 16px #EF9B5F);
+    border-radius: 30px;
 }
 
 .app-drawer {
     background-color: #FAFBFB;
     border-right: 1px solid #EAEAEA;
     height: 100vh;
-    flex-direction: column; /* Add this line */
+    flex-direction: column;
 }
 
 .app-drawer a {
     display: flex;
-    align-items: center; /* Vertically align the icon and the text */
-    padding: 8px 16px; /* Add some padding */
-    color: #000000; /* Change the color of the text */
+    align-items: center;
+    padding: 8px 16px;
+    color: #000000;
     text-decoration: none;
 }
 
 .app-drawer a:hover {
-    background-color: #F3F4F6; /* Add a background color on hover */
+    background-color: #F3F4F6;
     font-weight: bold;
     border-radius: 10px;
 }
 
 .app-drawer a.router-link-active {
-    background-color: #4CAF50; /* Change the background color of the active route */
+    background-color: #4CAF50;
     font-weight: bold;
 }
 
@@ -62,4 +76,20 @@
     flex-basis: 25%;
     flex-grow: 1;
     flex-shrink: 0;
+}
+
+.hello-title {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.name-title {
+    margin-top: -15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.introduction-layout {
+    margin-left: 51px;
 }

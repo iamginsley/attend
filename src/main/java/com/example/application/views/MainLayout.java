@@ -3,41 +3,53 @@ package com.example.application.views;
 import com.example.application.views.list.Dashboard;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.RouterLink;
-import com.vaadin.flow.theme.lumo.LumoUtility;
 
 public class MainLayout extends AppLayout {
     public MainLayout() {
         createHeader();
-        createDrawer();
     }
 
     private void createHeader() {
-        Icon logoIcon = new Icon(VaadinIcon.CALENDAR);
-        logoIcon.addClassName("app-header-icon");
+        Image logo = new Image("images/header_logo.png", "Attend Logo");
 
-        H1 logo = new H1("Attend");
-        logo.addClassNames(
-                LumoUtility.FontSize.LARGE,
-                LumoUtility.Margin.MEDIUM);
+        HorizontalLayout logoLayout = new HorizontalLayout(logo, introductionLayout());
 
-        var header = new HorizontalLayout(logoIcon, logo);
+        HorizontalLayout header = new HorizontalLayout(logoLayout, getProfileButton());
 
-        header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
-        header.expand(logo);
         header.setWidthFull();
-        header.addClassNames(
-                LumoUtility.Padding.Vertical.NONE,
-                LumoUtility.Padding.Horizontal.MEDIUM, "app-header");
+        header.addClassNames("app-header");
 
         addToNavbar(header);
     }
 
+    private Image getProfileButton() {
+        Image avatar = new Image("images/profile_placeholder.png", "Avatar");
+        avatar.addClassName("app-header-profile");
+
+        return avatar;
+    }
+
+    private VerticalLayout introductionLayout() {
+        H1 helloTitle = new H1("Hello,");
+        H1 nameTitle = new H1("Max Mustermann");
+
+        helloTitle.addClassName("hello-title");
+        nameTitle.addClassName("name-title");
+
+        VerticalLayout layout = new VerticalLayout(helloTitle, nameTitle);
+
+        layout.addClassName("introduction-layout");
+
+        return layout;
+    }
+
+    // possibly needed for admin view
     private void createDrawer() {
         Icon dashboardIcon = new Icon(VaadinIcon.DASHBOARD);
         RouterLink dashboardLink = new RouterLink("Dashboard", Dashboard.class);
