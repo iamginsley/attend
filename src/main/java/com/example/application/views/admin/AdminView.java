@@ -29,7 +29,7 @@ public class AdminView extends VerticalLayout {
     private void configureGrid() {
         grid.addClassNames("admin-grid");
         grid.setSizeFull();
-        //grid.setColumns("Id", "courseName", "teacher");
+        //grid.setColumns("Id", "courseName", "teacher"); // Info die Überschriften der Spalten werden über getter der Klasse gesetzt
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
