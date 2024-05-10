@@ -1,7 +1,8 @@
 package com.example.application.views;
 
-import com.example.application.views.list.Dashboard;
+import com.example.application.views.abstracts.UserView;
 import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.contextmenu.ContextMenu;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.icon.Icon;
@@ -32,7 +33,22 @@ public class MainLayout extends AppLayout {
         Image avatar = new Image("images/profile_placeholder.png", "Avatar");
         avatar.addClassName("app-header-profile");
 
+        ContextMenu profileMenu = new ContextMenu(avatar);
+        profileMenu.setOpenOnClick(true);
+        profileMenu.addItem("Settings", event -> navigateToSettings());
+        profileMenu.addItem("Logout", event -> performLogout());
+
         return avatar;
+    }
+
+    private void navigateToSettings() {
+        // Navigate to the settings view
+        System.out.println("Settings clicked");
+    }
+
+    private void performLogout() {
+        // Perform the logout action
+        System.out.println("Logout clicked");
     }
 
     private VerticalLayout introductionLayout() {
@@ -52,12 +68,12 @@ public class MainLayout extends AppLayout {
     // possibly needed for admin view
     private void createDrawer() {
         Icon dashboardIcon = new Icon(VaadinIcon.DASHBOARD);
-        RouterLink dashboardLink = new RouterLink("Dashboard", Dashboard.class);
+        RouterLink dashboardLink = new RouterLink("Dashboard", UserView.class);
         HorizontalLayout dashboardLayout = new HorizontalLayout(dashboardIcon, dashboardLink);
         dashboardLayout.addClassName("app-drawer-item"); // Add this line
 
         Icon attendanceIcon = new Icon(VaadinIcon.CALENDAR);
-        RouterLink attendanceLink = new RouterLink("Attendance", Dashboard.class);
+        RouterLink attendanceLink = new RouterLink("Attendance", UserView.class);
         HorizontalLayout attendanceLayout = new HorizontalLayout(attendanceIcon, attendanceLink);
         attendanceLayout.addClassName("app-drawer-item"); // Add this line
 
