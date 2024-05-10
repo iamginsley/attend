@@ -12,10 +12,4 @@ public class CurrentCourse extends UserViewEntry {
         this.addThirdRow(new String[]{"08:30 - 18:30", "34"});
         this.addButtonLayout(new CustomButton[]{new CustomButton("Check in Code"), new CustomButton("Check out Code")});
     }
-
-    private void addPulsatingCircle() {
-        HorizontalLayout pulsatingCircle = new HorizontalLayout();
-        pulsatingCircle.addClassNames("pulsating-circle", "false");
-        setTopRightCornerContent(pulsatingCircle);
-    }
 }
