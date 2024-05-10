@@ -1,6 +1,5 @@
 package com.example.application.views.admin;
 
-import com.example.application.data.Course;
 import com.example.application.views.MainLayout;
 import com.example.application.views.admin.course.AdminCourse;
 import com.example.application.views.components.CustomButton;

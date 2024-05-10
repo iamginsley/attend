@@ -14,15 +14,4 @@ public class AdminCourse {
         return Id;
     }
 
-    public String getCourseName() {
-        return CourseName;
-    }
-
-    public User getTeacher() {
-        return Teacher;
-    }
-
-    public Set<User> getStudents() {
-        return Students;
-    }
 }
