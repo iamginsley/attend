@@ -27,6 +27,22 @@ public class CodeScan {
 
     private Date time;
 
+    public void setStudents(User students) {
+        this.students = students;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public void setType(CodeType type) {
+        this.type = type;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
     public CodeScan() {}
 
     public CodeScan(User students, Course course, CodeType type, Date time) {
