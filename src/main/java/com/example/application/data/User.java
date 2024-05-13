@@ -30,4 +30,8 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<UserCourse> userCourses;
+
+    public int getId() {
+        return id;
+    }
 }

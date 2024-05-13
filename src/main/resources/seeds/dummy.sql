@@ -1,3 +1,5 @@
+SET FOREIGN_KEY_CHECKS = 0;
+
 -- Dummy data for absence_category table
 INSERT INTO absence_category (name) VALUES
 ('Medical Leave'),
@@ -12,9 +14,9 @@ INSERT INTO code_type (name) VALUES
 
 -- Dummy data for course table
 INSERT INTO course (name, parentCourseId) VALUES
-('Introduction to Programming', NULL),
-('Classical Mechanics', NULL),
-('Shakespearean Literature', NULL);
+('Introduction to Programming', 1),
+('Classical Mechanics', 2),
+('Shakespearean Literature', 3);
 
 -- Dummy data for faculty table
 INSERT INTO faculty (attendanceRate, name) VALUES
@@ -41,19 +43,6 @@ INSERT INTO user (email, name, password, studentNumber, surname, username, roleI
 ('student1@example.com', 'Alice', 'student123', 'S12345', 'Johnson', 'alice', 3),
 ('student2@example.com', 'Bob', 'student123', 'S67890', 'Williams', 'bob', 3);
 
--- Dummy data for code_scan table
-INSERT INTO code_scan (time, type, userId, courseId) VALUES
-('2024-05-06 08:00:00', 1, 3, 1),
-('2024-05-06 09:30:00', 2, 4, 3),
-('2024-05-06 10:45:00', 3, 3, 1),
-('2024-05-06 13:00:00', 1, 4, 3),
-('2024-05-06 14:30:00', 2, 3, 1);
-
--- Dummy data for code_scan_unexpected table
-INSERT INTO code_scan_unexpected (accepted, proofDocument, type, userId, courseId, reason) VALUES
-(0, 'medical_certificate.pdf', 1, 4, 3, 1),
-(0, 'personal_reason.pdf', 2, 3, 1, 3),
-(0, 'vacation_proof.pdf', 1, 4, 3, 2);
 
 -- Dummy data for course_code table
 INSERT INTO course_code (attendanceCode, time, timeOffset, type, courseId) VALUES
