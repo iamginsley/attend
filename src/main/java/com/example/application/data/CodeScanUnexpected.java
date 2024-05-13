@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "code_scan_unexpected")
-@IdClass(CodeScanUnexpectedId.class)
+//@IdClass(CodeScanUnexpectedId.class)
 public class CodeScanUnexpected {
     @Id
     @ManyToOne

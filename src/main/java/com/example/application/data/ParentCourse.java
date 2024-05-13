@@ -12,11 +12,11 @@ public class ParentCourse {
     private int id;
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "facultyId")
     private Faculty faculty;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "lecturerId")
     private User lecturer;
 
