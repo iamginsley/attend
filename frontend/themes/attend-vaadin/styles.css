@@ -126,6 +126,56 @@ vaadin-app-layout::part(navbar) {
     margin-left: 51px;
 }
 
+.calendar-container {
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+}
+
+.event-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    margin: 16px 0;
+    background-color: #F3F4F6;
+    border-radius: 16px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.highlighted {
+    border: 2px solid #FFB76A;
+    background-color: #FFF6E3;
+}
+
+.date-block {
+    text-align: center;
+    min-width: 70px;
+    padding: 8px;
+    background-color: #E0E0E0;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+}
+
+.details-block {
+    flex-grow: 1;
+    padding-left: 16px;
+}
+
+.details-block p {
+    margin: 4px 0;
+}
+
+@media (max-width: 768px) {
+    .event-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
 .user-view-calendar {
     width: 50%;
     display: flex;
