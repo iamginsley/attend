@@ -1,0 +1,79 @@
+.login-view-background {
+    background-image: url('../images/Login.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
+.text-layout {
+    text-align: left;
+    margin-left: 5%;
+}
+
+.main-title {
+    font-size: 300px;
+    color: white;
+}
+
+.sub-title {
+    font-size: 35px;
+    color: white;
+}
+
+#login-form {
+    background-color: #FFFFFF;
+    box-shadow: 0 3px 80.2px -16px rgba(0, 0, 0, 0.25);
+    border-radius: 32px;
+    padding: 1em;
+    margin-right: 100px;
+}
+
+vaadin-login-form vaadin-button[theme~="submit"] {
+    color: white;
+    background: #EF9B5F;
+    border-radius: 12px;
+    width: 100%;
+    height: 65px;
+}
+
+.form-layout {
+    width: 30%;
+    align-items: center;
+}
+
+.footer-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: white;
+    font-size: 20px;
+    margin: 10px;
+}
+
+vaadin-login-form [slot="forgot-password"] {
+    color: #EF9B5F;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-title, .sub-title {
+        display: none;
+    }
+    .footer-text {
+        font-size: 12px;
+    }
+    #login-form {
+        width: 100%;
+        margin-right: 50px;
+        margin-left: 0;
+        padding: 10px;
+    }
+    .form-layout {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+}
