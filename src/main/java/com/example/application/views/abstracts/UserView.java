@@ -1,8 +1,16 @@
 package com.example.application.views.abstracts;
 
-import com.example.application.views.components.CalendarComponent;
+import com.example.application.views.components.calendar.CalendarComponent;
+import com.example.application.views.components.calendar.CalendarEvent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 public abstract class UserView extends VerticalLayout {
@@ -25,10 +33,21 @@ public abstract class UserView extends VerticalLayout {
 
     protected abstract HorizontalLayout getUserViewBody();
 
+    private List<CalendarEvent> generateCalendarEvents() {
+        List<CalendarEvent> events = new ArrayList<>();
+
+        events.add(new CalendarEvent(LocalDate.now(), LocalTime.of(9,30),LocalTime.of(13,45),"Test", false ));
+        events.add(new CalendarEvent(LocalDate.now(), LocalTime.of(9,30),LocalTime.of(14,45),"Sepp", true ));
+        events.add(new CalendarEvent(LocalDate.now(), LocalTime.of(9,30),LocalTime.of(12,45),"Toll", false ));
+        events.add(new CalendarEvent(LocalDate.now(), LocalTime.of(9,30),LocalTime.of(11,23),"Ois Geht dahi", false ));
+        events.add(new CalendarEvent(LocalDate.now(), LocalTime.of(9,30),LocalTime.of(11,23),"Ois Geht dahi", false ));
+        return  events;
+    }
+
     protected HorizontalLayout getUserCalendar() {
         HorizontalLayout layout = new HorizontalLayout();
         layout.addClassName("user-view-calendar");
-        layout.add(new CalendarComponent());
+        layout.add(new CalendarComponent(generateCalendarEvents()));
         return layout;
     }
 }
