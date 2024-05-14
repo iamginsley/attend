@@ -1,20 +1,21 @@
-package com.example.application.views.list;
+package com.example.application.views.components.calendar;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class CalendarEvent {
     private LocalDate date;
-    private String checkInTime;
-    private String checkOutTime;
-    private String totalTime;
+    private LocalTime checkInTime;
+    private LocalTime checkOutTime;
+
     private String description;
     private boolean highlighted;
 
-    public CalendarEvent(LocalDate date, String checkInTime, String checkOutTime, String totalTime, String description, boolean highlighted) {
+    public CalendarEvent(LocalDate date, LocalTime checkInTime, LocalTime checkOutTime, String description, boolean highlighted) {
         this.date = date;
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
-        this.totalTime = totalTime;
         this.description = description;
         this.highlighted = highlighted;
     }
@@ -23,16 +24,21 @@ public class CalendarEvent {
         return date;
     }
 
-    public String getCheckInTime() {
+    public LocalTime getCheckInTime() {
         return checkInTime;
     }
 
-    public String getCheckOutTime() {
+    public LocalTime getCheckOutTime() {
         return checkOutTime;
     }
 
     public String getTotalTime() {
-        return totalTime;
+        if(this.checkOutTime == null || this.checkInTime == null) {
+            return null;
+        }
+
+        // calculate time between timestamps.
+        return String.valueOf(Duration.between(this.checkInTime, this.checkOutTime).toHours());
     }
 
     public String getDescription() {

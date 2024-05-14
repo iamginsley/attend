@@ -3,6 +3,24 @@ vaadin-app-layout::part(navbar) {
     background-image: unset;
 }
 
+/* Base */
+
+.flex {
+    display: flex;
+
+    &.jb {
+        justify-content: space-between;
+    }
+
+    &.ac{
+        align-items: center;
+    }
+}
+
+.w-full {
+    width: 100%;
+}
+
 .app-header {
     background-color: white;
     height: 128px;
@@ -126,12 +144,6 @@ vaadin-app-layout::part(navbar) {
     margin-left: 51px;
 }
 
-.calendar-container {
-    width: 100%;
-    max-width: 700px;
-    margin: auto;
-}
-
 .event-card {
     display: flex;
     align-items: center;
@@ -176,23 +188,7 @@ vaadin-app-layout::part(navbar) {
     }
 }
 
-.user-view-calendar {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.calendar-placeholder {
-    width: 60%;
-    height: 500px;
-    background-color: white;
-    border-radius: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 13px 1px rgba(0, 0, 0, 0.25);
-}
 
 .user-view-entry-icon {
     background: rgba(239, 155, 95, 0.55);
@@ -310,4 +306,60 @@ vaadin-app-layout::part(navbar) {
     display: flex;
     justify-content: space-between;
     align-items: end;
+}
+
+
+/* Calendar Component */
+
+.calendar-component-wrapper {
+    height: 35rem;
+    overflow-y: auto;
+}
+
+.user-view-calendar {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar-item {
+    background-color: white;
+    flex-direction: row;
+    border-radius: 16px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    justify-content: space-around;
+}
+
+.event-info {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.date-card {
+    background: #EF9B5F;
+    font-weight: 700;
+    font-size: 1.8em;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.time-container {
+    margin-bottom: 14px;
+}
+
+.time-entry {
+   &:not(:first-child) {
+    border-left: 2px solid;
+    border-color:#EF9B5F;
+    padding-left: 10px;
+   }
+}
+
+.is-active {
+    border: 2px solid;
+    border-color: #EF9B5F;
 }
