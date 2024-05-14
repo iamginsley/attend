@@ -1,0 +1,47 @@
+.course-modal-container {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.qr-and-time-layout {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: center;
+}
+
+.time-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.attendance-info {
+    background-color: #EF9B5F;
+    color: white;
+    text-align: center;
+    vertical-align: center;
+    padding: 8px 0;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 50%/100px 100px 0 0; /* Creating a wave-like effect */
+}
+
+.stats-layout {
+    background-color: #EF9B5F;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.stats-span {
+    flex-grow: 1;
+    text-align: center;
+}
