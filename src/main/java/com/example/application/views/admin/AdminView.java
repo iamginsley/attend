@@ -12,9 +12,8 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
-import org.springframework.security.access.prepost.PreAuthorize;
 
-@PreAuthorize("hasAuthority('admin')")
+@PermitAll
 @PageTitle("Admin | Vaadin CRM")
 @Route(value = "admin-view", layout = MainLayout.class)
 public class AdminView extends VerticalLayout {
