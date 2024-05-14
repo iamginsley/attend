@@ -1,4 +1,4 @@
-package com.example.application.views.login;
+package com.example.application;
 
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
@@ -50,6 +50,7 @@ public class LoginView extends HorizontalLayout {
     private LoginForm createLoginForm() {
         LoginForm loginForm = new LoginForm();
         loginForm.setId("login-form");
+        loginForm.setAction("login");
         loginForm.setI18n(createLoginI18n());
         return loginForm;
     }
