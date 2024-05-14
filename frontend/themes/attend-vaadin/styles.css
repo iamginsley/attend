@@ -314,6 +314,7 @@ vaadin-app-layout::part(navbar) {
 .calendar-component-wrapper {
     height: 35rem;
     overflow-y: auto;
+    align-items: end;
 }
 
 .user-view-calendar {
@@ -324,12 +325,24 @@ vaadin-app-layout::part(navbar) {
 }
 
 .calendar-item {
+    box-sizing: border-box;
     background-color: white;
     flex-direction: row;
     border-radius: 16px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     justify-content: space-around;
+    width: 95% !important;
+    transition: all .5s  ease;
+    filter: grayscale(1);
+
 }
+
+.calendar-item:hover {
+    border: 2px solid #EF9B5F;
+    width: 100% !important;
+    filter: none
+}
+
 
 .event-info {
     align-items: center;
@@ -359,7 +372,3 @@ vaadin-app-layout::part(navbar) {
    }
 }
 
-.is-active {
-    border: 2px solid;
-    border-color: #EF9B5F;
-}
