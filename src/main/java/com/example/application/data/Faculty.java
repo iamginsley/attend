@@ -20,5 +20,14 @@ public class Faculty {
             inverseJoinColumns = @JoinColumn(name = "userId"))
     private Set<User> students;
 
-    public Faculty() {}
+    public Faculty() {
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
 }

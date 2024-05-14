@@ -1,8 +1,12 @@
 package com.example.application.views.admin;
 
+import com.example.application.data.ParentCourse;
 import com.example.application.views.MainLayout;
+import com.example.application.views.admin.course.AddCourseForm;
+import com.example.application.views.admin.course.AddParentCourseForm;
 import com.example.application.views.admin.course.AdminCourse;
 import com.example.application.views.components.CustomButton;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -17,13 +21,17 @@ import com.vaadin.flow.router.Route;
 public class AdminView extends VerticalLayout {
     Grid<AdminCourse> grid = new Grid<>(AdminCourse.class);
     TextField filterText = new TextField();
+    AddCourseForm addCourseForm;
+    AddParentCourseForm addParentCourseForm;
 
     public AdminView() {
         addClassName("admin-view");
         setSizeFull();
         configureGrid();
+        configureAddCourseForm();
+        configureAddParentCourseForm();
 
-        add(getToolbar(), grid);
+        add(getToolbar(), getContent());
     }
 
     private void configureGrid() {
@@ -37,12 +45,46 @@ public class AdminView extends VerticalLayout {
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
 
+        //Add Course Button
         Button addCourseButton = new CustomButton("Add Course");
+        addCourseButton.addClickListener(e -> addCourseForm.setVisible(!addCourseForm.isVisible()));
 
-        HorizontalLayout toolbar = new HorizontalLayout(addCourseButton, filterText);
+        //Add Course Button
+        Button addParentCourseButton = new CustomButton("Add Parent Course");
+        addParentCourseButton.addClickListener(e -> addParentCourseForm.setVisible(!addParentCourseForm.isVisible()));
+
+
+        HorizontalLayout toolbar = new HorizontalLayout(addCourseButton,
+                addParentCourseButton,
+                filterText);
         toolbar.addClassName("toolbar");
         toolbar.setWidthFull();
         toolbar.setJustifyContentMode(JustifyContentMode.BETWEEN);
         return toolbar;
     }
+
+    private Component getContent() {
+        HorizontalLayout content = new HorizontalLayout(grid,
+                addCourseForm,
+                addParentCourseForm);
+        content.setFlexGrow(2, grid);
+        content.setFlexGrow(1, addCourseForm);
+        content.setFlexGrow(1, addParentCourseForm);
+        content.addClassNames("content");
+        content.setSizeFull();
+        return content;
+    }
+
+    private void configureAddCourseForm() {
+        addCourseForm = new AddCourseForm();
+        addCourseForm.setWidth("25em");
+        addCourseForm.setVisible(false); // Initially hide the form
+    }
+
+    private void configureAddParentCourseForm() {
+        addParentCourseForm = new AddParentCourseForm();
+        addParentCourseForm.setWidth("25em");
+        addParentCourseForm.setVisible(false); // Initially hide the form
+    }
+
 }
