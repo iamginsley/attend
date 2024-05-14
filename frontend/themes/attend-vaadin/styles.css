@@ -91,6 +91,7 @@ vaadin-app-layout::part(navbar) {
     max-width: 20vw;
     height: 370px;
 
+    position: relative;
     margin-right: 40px;
     margin-bottom: 40px;
 }
@@ -172,6 +173,7 @@ vaadin-app-layout::part(navbar) {
 .user-view-entry-top-right-corner {
     position: absolute !important;
     right: 0 !important;
+    top: 0;
 }
 
 .user-view-entry-body {
@@ -221,7 +223,6 @@ vaadin-app-layout::part(navbar) {
     height: 12px;
     border-radius: 50%;
     animation: pulsate 1.5s infinite;
-    margin-top: -40px;
 }
 
 .user-view-entry-top-right-corner.pulsating-circle.true {
@@ -260,4 +261,72 @@ vaadin-app-layout::part(navbar) {
     display: flex;
     justify-content: space-between;
     align-items: end;
+}
+
+@media(max-width: 480px){
+    .user-view-layout{
+        flex-direction: column;
+    }
+    .user-view{
+        padding: 20px;
+    }
+    .user-view-body{
+        width: 100%;
+        flex-direction: column;
+        padding-right: 0;
+    }
+    .user-view-entry{
+        width: 100%;
+        max-width:none;
+        padding: 15px 25px;
+    }
+    .user-view-body .user-view-entry-button-layout{
+        display: none;
+    }
+    .user-view-entry{
+        height: auto;
+        margin-right: 0;
+    }
+    .user-view-entry-icon{
+        width: 25px;
+        height: 25px;
+    }
+    .user-view-entry-body{
+        padding: 0;
+        gap: 5px;
+    }
+    .user-view-calendar{
+        width: 100%;
+
+    }
+    .calendar-placeholder{
+        width: 100%;
+    }
+    .app-header{
+        height: auto;
+        padding: 25px 20px;
+        justify-content: space-between;
+    }
+    .app-header img:not(.app-header-profile){
+        height: 20px;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .header-logo-container{
+        flex-direction: column;
+    }
+    .introduction-layout{
+        margin-left: 0;
+        padding: 0;
+    }
+    .app-header-profile{
+        margin: 0;
+    }
+    .name-title{
+        font-size: 18px;
+    }
+    .hello-title{
+        font-size: 16px;
+    }
 }

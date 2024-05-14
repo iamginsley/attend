@@ -20,6 +20,7 @@ public class MainLayout extends AppLayout {
         Image logo = new Image("images/header_logo.png", "Attend Logo");
 
         HorizontalLayout logoLayout = new HorizontalLayout(logo, introductionLayout());
+        logoLayout.addClassName("header-logo-container");
 
         HorizontalLayout header = new HorizontalLayout(logoLayout, getProfileButton());
 
