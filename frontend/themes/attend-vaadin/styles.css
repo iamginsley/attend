@@ -462,7 +462,27 @@ vaadin-app-layout::part(navbar) {
     }
     .calendar-component-wrapper{
         padding: 0;
-        overflow: visible;
+        overflow: scroll;
+        padding-right: 10px;
+    }
+
+    .calendar-component-wrapper::-webkit-scrollbar {
+        width:5px;
+    }
+
+    .calendar-component-wrapper::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .calendar-component-wrapper::-webkit-scrollbar-thumb {
+        background: #888;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+    }
+
+    .calendar-component-wrapper::-webkit-scrollbar-thumb:hover {
+        background: #555;
     }
     .calendar-item{
         width: 100% !important;
