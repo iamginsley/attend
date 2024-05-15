@@ -15,9 +15,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends VaadinWebSecurity {
 
     private final UserDetailsService userDetailsService;
+    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
-    public SecurityConfig(UserDetailsService userDetailsService) {
+    public SecurityConfig(UserDetailsService userDetailsService, CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) {
         this.userDetailsService = userDetailsService;
+        this.customAuthenticationSuccessHandler = customAuthenticationSuccessHandler;
     }
 
     @Override
@@ -28,5 +30,6 @@ public class SecurityConfig extends VaadinWebSecurity {
         super.configure(http);
         setLoginView(http, LoginView.class);
         http.userDetailsService(userDetailsService);
-
-}}
+        http.formLogin(formLogin -> formLogin.loginPage("/login").successHandler(customAuthenticationSuccessHandler).permitAll());
+    }
+}
