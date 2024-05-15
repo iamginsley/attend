@@ -18,7 +18,7 @@ import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
 
 @PermitAll
-@PageTitle("Admin | Vaadin CRM")
+@PageTitle("Admin | Attend")
 @Route(value = "admin-view", layout = MainLayout.class)
 public class AdminView extends VerticalLayout {
     Grid<AdminCourse> grid = new Grid<>(AdminCourse.class);
