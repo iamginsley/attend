@@ -2,8 +2,10 @@ package com.example.application.service;
 
 import com.example.application.data.ParentCourse;
 import com.example.application.repository.ParentCourseRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,5 +43,12 @@ public class ParentCourseService {
             }
         }
         return null; // or throw an exception as per your error handling strategy
+    }
+
+    @Transactional(readOnly = true)
+    public List<ParentCourse> findCourseByLecturer(int lecturerId) {
+        List<ParentCourse> courses = courseRepository.findByLecturer_Id(lecturerId);
+        courses.forEach(course -> Hibernate.initialize(course.getChildren()));
+        return courses;
     }
 }
