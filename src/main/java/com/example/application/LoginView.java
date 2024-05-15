@@ -11,7 +11,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@PageTitle("Attemd Login")
+@PageTitle("Attend Login")
 @CssImport("./styles/login-styles.css")
 @Route("login")
 public class LoginView extends HorizontalLayout {
