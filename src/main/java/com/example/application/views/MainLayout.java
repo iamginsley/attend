@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.flow.router.RouterLink;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class MainLayout extends AppLayout {
 
     private final SecurityService securityService;
