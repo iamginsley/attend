@@ -5,10 +5,12 @@ import com.example.application.views.abstracts.UserView;
 import com.example.application.views.student.entries.CheckedIn;
 import com.example.application.views.student.entries.NextCourse;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
 
 @PermitAll
+@PageTitle("Student | Attend")
 @Route(value = "student-view", layout = MainLayout.class)
 public class StudentView extends UserView {
     @Override
