@@ -1,5 +1,6 @@
 package com.example.application.views;
 
+import com.example.application.security.SecurityService;
 import com.example.application.views.abstracts.UserView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.contextmenu.ContextMenu;
@@ -9,10 +10,18 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.flow.router.RouterLink;
+import org.springframework.stereotype.Component;
+
 
 public class MainLayout extends AppLayout {
-    public MainLayout() {
+
+    private final SecurityService securityService;
+
+    @Autowired
+    public MainLayout(SecurityService securityService) {
+        this.securityService = securityService;
         createHeader();
     }
 
@@ -48,8 +57,7 @@ public class MainLayout extends AppLayout {
     }
 
     private void performLogout() {
-        // Perform the logout action
-        System.out.println("Logout clicked");
+        securityService.logout();
     }
 
     private VerticalLayout introductionLayout() {
