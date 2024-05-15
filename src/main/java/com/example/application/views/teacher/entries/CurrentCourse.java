@@ -4,7 +4,7 @@ import com.example.application.data.Course;
 import com.example.application.data.ParentCourse;
 import com.example.application.views.abstracts.UserViewEntry;
 import com.example.application.views.components.CustomButton;
-import com.example.application.views.teacher.Modal.CourseModal;
+import com.example.application.views.teacher.modal.CourseModal;
 
 public class CurrentCourse extends UserViewEntry {
     public CurrentCourse() {

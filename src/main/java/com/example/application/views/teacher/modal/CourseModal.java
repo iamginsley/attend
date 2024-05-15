@@ -1,4 +1,4 @@
-package com.example.application.views.teacher.Modal;
+package com.example.application.views.teacher.modal;
 
 import com.example.application.data.Course;
 import com.example.application.data.CourseCode;
@@ -69,11 +69,6 @@ public class CourseModal extends Dialog{
     private void setLayout(){
         VerticalLayout container = new VerticalLayout();
         container.addClassName("course-modal-container");
-
-        // Close Button
-        CustomButton closeButton = new CustomButton("Close");
-        closeButton.addClickListener(event -> this.close());
-        container.add(closeButton);
 
         // QR Code and Time
         HorizontalLayout topRow = new HorizontalLayout();
