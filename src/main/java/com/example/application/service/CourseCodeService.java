@@ -11,21 +11,27 @@ import java.util.Optional;
 
 @Service
 public class CourseCodeService {
-    @Autowired
-    private CourseCodeRepository courseCodeRepository;
 
+    private final CourseCodeRepository courseCodeRepository;
+
+    @Autowired
+    public CourseCodeService(CourseCodeRepository courseCodeRepository) {
+        this.courseCodeRepository = courseCodeRepository;
+    }
     public List<CourseCode> getAllCourseCodes() {
         return courseCodeRepository.findAll();
     }
 
-    public Optional<CourseCode> getCourseCode(Long id) {
-        return courseCodeRepository.findById(id);
+    public List<CourseCode> findAll() {
+        return courseCodeRepository.findAll();
     }
-
     public CourseCode createCourseCode(CourseCode courseCode) {
         return courseCodeRepository.save(courseCode);
     }
 
+    public CourseCode save(CourseCode courseCode) {
+        return courseCodeRepository.save(courseCode);
+    }
     public CourseCode updateCourseCode(Long id, CourseCode courseCodeDetails) {
         CourseCode courseCode = courseCodeRepository.findById(id).orElseThrow(() -> new RuntimeException("CourseCode not found for this id :: " + id));
         courseCode.setCourse(courseCodeDetails.getCourse());
@@ -44,6 +50,4 @@ public class CourseCodeService {
     public Optional<CourseCode> getCourseCodeByCourseId(Integer id) {
         return courseCodeRepository.findCourseCodeByCourse_Id(id);
     }
-
-
 }
