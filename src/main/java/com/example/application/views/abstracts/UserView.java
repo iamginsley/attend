@@ -1,11 +1,18 @@
 package com.example.application.views.abstracts;
 
+import com.example.application.security.SecurityService;
+import com.example.application.service.CodeScanService;
+import com.example.application.service.UserCourseService;
+import com.example.application.service.UserDetailsServiceImpl;
 import com.example.application.service.CourseService;
 import com.example.application.service.ParentCourseService;
 import com.example.application.views.components.calendar.CalendarComponent;
 import com.example.application.views.components.calendar.CalendarEvent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,16 +20,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@Component
 public abstract class UserView extends VerticalLayout {
     protected HorizontalLayout layoutBody;
     protected HorizontalLayout userEntriesLayout;
 
     protected ParentCourseService parentCourseService;
+
+    protected CodeScanService codeScanService;
+
+    protected SecurityService securityService;
+
+    protected UserDetailsServiceImpl userDetailsService;
+
+    protected UserCourseService userCourseService;
+
     protected CourseService courseService;
 
-    public UserView(ParentCourseService parentCourseService, CourseService courseService) {
+
+    @Autowired
+    public UserView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService, CourseService courseService) {
         this.addClassName("user-view");
         this.parentCourseService = parentCourseService;
+        this.codeScanService = codeScanService;
+        this.securityService = securityService;
+        this.userDetailsService = userDetailsService;
+        this.userCourseService = userCourseService;
         this.courseService = courseService;
 
         this.userEntriesLayout = this.getUserViewBody();
@@ -32,6 +55,7 @@ public abstract class UserView extends VerticalLayout {
         this.layoutBody.addClassName("user-view-layout");
         this.layoutBody.setSizeFull();
         this.layoutBody.setFlexGrow(1, this.userEntriesLayout);
+
 
         add(this.layoutBody);
     }

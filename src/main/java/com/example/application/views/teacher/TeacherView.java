@@ -1,7 +1,7 @@
 package com.example.application.views.teacher;
 
-import com.example.application.service.CourseService;
-import com.example.application.service.ParentCourseService;
+import com.example.application.security.SecurityService;
+import com.example.application.service.*;
 import com.example.application.views.MainLayout;
 import com.example.application.views.abstracts.UserView;
 import com.example.application.views.teacher.entries.CurrentCourse;
@@ -16,12 +16,15 @@ import jakarta.annotation.security.PermitAll;
 @Route(value = "teacher-view", layout = MainLayout.class)
 public class TeacherView extends UserView {
 
-    public TeacherView(ParentCourseService parentCourseService, CourseService courseService) {
-        super(parentCourseService, courseService);
+    public TeacherView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService, CourseService courseService) {
+        super(parentCourseService, codeScanService, securityService,userDetailsService,userCourseService,courseService);
     }
 
     @Override
     protected HorizontalLayout getUserViewBody() {
+
+       // getCurrentCourse();
+
         HorizontalLayout bodyLayout = new HorizontalLayout();
 
         bodyLayout.add(

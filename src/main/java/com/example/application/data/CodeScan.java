@@ -1,7 +1,6 @@
 package com.example.application.data;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
@@ -9,23 +8,25 @@ import java.util.Date;
 @IdClass(CodeScanId.class)
 public class CodeScan {
 
-
     @Id
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "userId", insertable = false, updatable = false)
     private User students;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "courseId")
+    @JoinColumn(name = "courseId", insertable = false, updatable = false)
     private Course course;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "type")
+    @JoinColumn(name = "type", insertable = false, updatable = false)
     private CodeType type;
 
     private Date time;
+
+    public CodeScan() {}
+
 
     public void setStudents(User students) {
         this.students = students;
@@ -40,15 +41,6 @@ public class CodeScan {
     }
 
     public void setTime(Date time) {
-        this.time = time;
-    }
-
-    public CodeScan() {}
-
-    public CodeScan(User students, Course course, CodeType type, Date time) {
-        this.students = students;
-        this.course = course;
-        this.type = type;
         this.time = time;
     }
 
@@ -67,4 +59,5 @@ public class CodeScan {
     public Date getTime() {
         return time;
     }
+
 }

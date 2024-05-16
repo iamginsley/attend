@@ -1,6 +1,8 @@
 package com.example.application.service;
 
 import com.example.application.data.Course;
+
+import com.example.application.data.UserCourse;
 import com.example.application.data.CourseCode;
 import com.example.application.data.ParentCourse;
 import com.example.application.repository.CourseRepository;
@@ -167,5 +169,9 @@ public class CourseService {
         }
 
         return startEntry.getTime().toString();
+    }
+
+    public List<Course> getCoursesByParentId(Integer id) {
+        return this.courseRepository.getCoursesByParentCourse_Id(id);
     }
 }

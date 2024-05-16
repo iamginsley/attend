@@ -1,5 +1,7 @@
 package com.example.application.views.student.entries;
 
+import com.example.application.data.Course;
+import com.example.application.data.ParentCourse;
 import com.example.application.service.CourseService;
 import com.example.application.service.ParentCourseService;
 import com.example.application.views.abstracts.UserViewEntry;
