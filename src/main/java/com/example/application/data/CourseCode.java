@@ -2,6 +2,9 @@ package com.example.application.data;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -18,7 +21,7 @@ public class CourseCode {
     @JoinColumn(name = "type")
     private CodeType type;
 
-    private Date time;
+    private LocalDateTime time;
     private int timeOffset;
     @Column(unique = true)
     private String attendanceCode;
@@ -26,7 +29,7 @@ public class CourseCode {
     public CourseCode() {
     }
 
-    public CourseCode(Course course, CodeType type, Date time, int timeOffset, String attendanceCode) {
+    public CourseCode(Course course, CodeType type, LocalDateTime time, int timeOffset, String attendanceCode) {
         this.course = course;
         this.type = type;
         this.time = time;
@@ -40,6 +43,11 @@ public class CourseCode {
 
     public void setCourse(Course course) {
         this.course = course;
+
+    }
+    
+    public LocalDateTime getTime() {
+        return time;
     }
 
     public CodeType getType() {
@@ -50,11 +58,8 @@ public class CourseCode {
         this.type = type;
     }
 
-    public Date getTime() {
-        return time;
-    }
 
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
@@ -72,5 +77,23 @@ public class CourseCode {
 
     public void setAttendanceCode(String attendanceCode) {
         this.attendanceCode = attendanceCode;
+    }
+
+    public boolean isBefore() {
+        LocalDateTime currentTime = LocalDateTime.now();
+        return currentTime.isBefore(time);
+    }
+
+    public boolean isAfter() {
+        LocalDateTime currentTime = LocalDateTime.now();
+        return currentTime.isAfter(time);
+    }
+
+    public boolean isCheckIn() {
+        return type.getName().equals("check-in");
+    }
+
+    public boolean isCheckOut() {
+        return type.getName().equals("check-out");
     }
 }

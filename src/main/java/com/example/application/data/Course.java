@@ -2,7 +2,7 @@ package com.example.application.data;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "course")
@@ -16,12 +16,8 @@ public class Course {
     @JoinColumn(name = "parentCourseId")
     private ParentCourse parentCourse;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_course",
-            joinColumns = @JoinColumn(name = "courseId"),
-            inverseJoinColumns = @JoinColumn(name = "userId"))
-    private Set<User> students;
+    @OneToMany(mappedBy = "course")
+    private List<CourseCode> courseCodes;
 
     public int getId() {
         return id;
@@ -47,11 +43,11 @@ public class Course {
         this.parentCourse = parentCourse;
     }
 
-    public Set<User> getStudents() {
-        return students;
+    public List<CourseCode> getCourseCodes() {
+        return courseCodes;
     }
 
-    public void setStudents(Set<User> students) {
-        this.students = students;
+    public void setCourseCode(CourseCode courseCode) {
+        courseCodes.add(courseCode);
     }
 }

@@ -5,9 +5,10 @@ import com.example.application.data.ParentCourse;
 import com.example.application.data.User;
 import com.example.application.security.SecurityService;
 import com.example.application.service.CodeScanService;
-import com.example.application.service.ParentCourseService;
 import com.example.application.service.UserCourseService;
 import com.example.application.service.UserDetailsServiceImpl;
+import com.example.application.service.CourseService;
+import com.example.application.service.ParentCourseService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.abstracts.UserView;
 import com.example.application.views.student.entries.CheckedIn;
@@ -29,8 +30,8 @@ public class StudentView extends UserView {
 
     private User currentUser;
 
-    public StudentView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService) {
-        super(parentCourseService, codeScanService, securityService, userDetailsService, userCourseService);
+    public StudentView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService, CourseService courseService) {
+        super(parentCourseService, codeScanService, securityService, userDetailsService, userCourseService, courseService);
     }
 
 
@@ -54,7 +55,7 @@ public class StudentView extends UserView {
         //);
 
         for (Course c : this.userCourses) {
-            bodyLayout.add(new CheckedIn(c, this.currentUser.getId(), this.codeScanService));
+            bodyLayout.add(new CheckedIn(c, this.currentUser.getId(), this.codeScanService, courseService,parentCourseService));
         }
 
         return bodyLayout;

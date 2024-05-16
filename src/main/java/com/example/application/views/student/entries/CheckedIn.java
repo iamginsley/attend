@@ -3,6 +3,8 @@ package com.example.application.views.student.entries;
 import com.example.application.data.Course;
 import com.example.application.data.ParentCourse;
 import com.example.application.service.CodeScanService;
+import com.example.application.service.CourseService;
+import com.example.application.service.ParentCourseService;
 import com.example.application.views.abstracts.UserViewEntry;
 import com.example.application.views.components.CustomButton;
 import com.example.application.views.student.Modal.CheckInModal;
@@ -15,8 +17,8 @@ public class CheckedIn extends UserViewEntry {
     private Integer userId;
     private Course course;
 
-    public CheckedIn(Course course, Integer userId, CodeScanService codeScanService) {
-        super("Checked In");
+    public CheckedIn(Course course, Integer userId, CodeScanService codeScanService, CourseService courseService, ParentCourseService parentCourseService) {
+        super("Checked In", parentCourseService, courseService);
 
         this.codeScanService = codeScanService;
         this.course = course;

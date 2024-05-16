@@ -1,18 +1,11 @@
 package com.example.application.views.teacher;
 
-import com.example.application.data.Course;
-import com.example.application.data.ParentCourse;
 import com.example.application.security.SecurityService;
-import com.example.application.service.CodeScanService;
-import com.example.application.service.ParentCourseService;
-import com.example.application.service.UserCourseService;
-import com.example.application.service.UserDetailsServiceImpl;
+import com.example.application.service.*;
 import com.example.application.views.MainLayout;
-import com.example.application.views.components.CustomButton;
 import com.example.application.views.abstracts.UserView;
 import com.example.application.views.teacher.entries.CurrentCourse;
 import com.example.application.views.teacher.entries.NextCourse;
-import com.example.application.views.teacher.modal.ViewAllCoursesModal;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -23,18 +16,8 @@ import jakarta.annotation.security.PermitAll;
 @Route(value = "teacher-view", layout = MainLayout.class)
 public class TeacherView extends UserView {
 
-    private Course currentCourse;
-
-    public TeacherView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService) {
-        super(parentCourseService, codeScanService, securityService, userDetailsService, userCourseService);
-    }
-
-    public void getCurrentCourse() {
-        var user = securityService.getAuthenticatedUser();
-
-        System.out.println(user);
-
-
+    public TeacherView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService, CourseService courseService) {
+        super(parentCourseService, codeScanService, securityService,userDetailsService,userCourseService,courseService);
     }
 
     @Override
@@ -45,20 +28,12 @@ public class TeacherView extends UserView {
         HorizontalLayout bodyLayout = new HorizontalLayout();
 
         bodyLayout.add(
-                new CurrentCourse(),
-                new NextCourse(new CustomButton[] {openViewAllCoursesModalButton()})
+                new CurrentCourse(super.parentCourseService, super.courseService),
+                new NextCourse(super.parentCourseService, super.courseService)
         );
 
         return bodyLayout;
     }
 
-    private CustomButton openViewAllCoursesModalButton() {
-        CustomButton openModalButton = new CustomButton("View all");
-        openModalButton.addClickListener(e -> {
-            var courses = parentCourseService.findCourseByLecturer(2);
-            ViewAllCoursesModal viewAllCoursesModal = new ViewAllCoursesModal(courses);
-            viewAllCoursesModal.open();
-        });
-        return openModalButton;
-    }
+
 }

@@ -2,9 +2,10 @@ package com.example.application.views.abstracts;
 
 import com.example.application.security.SecurityService;
 import com.example.application.service.CodeScanService;
-import com.example.application.service.ParentCourseService;
 import com.example.application.service.UserCourseService;
 import com.example.application.service.UserDetailsServiceImpl;
+import com.example.application.service.CourseService;
+import com.example.application.service.ParentCourseService;
 import com.example.application.views.components.calendar.CalendarComponent;
 import com.example.application.views.components.calendar.CalendarEvent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -35,14 +35,18 @@ public abstract class UserView extends VerticalLayout {
 
     protected UserCourseService userCourseService;
 
+    protected CourseService courseService;
+
+
     @Autowired
-    public UserView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService) {
+    public UserView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService, CourseService courseService) {
         this.addClassName("user-view");
         this.parentCourseService = parentCourseService;
         this.codeScanService = codeScanService;
         this.securityService = securityService;
         this.userDetailsService = userDetailsService;
         this.userCourseService = userCourseService;
+        this.courseService = courseService;
 
         this.userEntriesLayout = this.getUserViewBody();
         this.userEntriesLayout.addClassName("user-view-body");
