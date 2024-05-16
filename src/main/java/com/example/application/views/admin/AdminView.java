@@ -1,6 +1,11 @@
 package com.example.application.views.admin;
 
+import com.example.application.data.Course;
 import com.example.application.data.ParentCourse;
+import com.example.application.service.*;
+import com.example.application.service.CourseService;
+import com.example.application.service.ParentCourseService;
+import com.example.application.service.ParentCourseService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.admin.course.AddCourseForm;
 import com.example.application.views.admin.course.AddParentCourseForm;
@@ -16,17 +21,34 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import java.util.List;
 
 @PermitAll
 @PageTitle("Admin | Attend")
 @Route(value = "admin-view", layout = MainLayout.class)
 public class AdminView extends VerticalLayout {
-    Grid<AdminCourse> grid = new Grid<>(AdminCourse.class);
+    private final ParentCourseService parentCourseService;
+    private final CourseService courseService;
+    private final CourseCodeService CourseCodeService;
+    private final CodeTypeService codeTypeService;
+    private final UserDetailsServiceImpl userDetailsService;
+
+    Grid<Course> grid = new Grid<>(Course.class);
     TextField filterText = new TextField();
     AddCourseForm addCourseForm;
     AddParentCourseForm addParentCourseForm;
 
-    public AdminView() {
+    public AdminView(ParentCourseService parentCourseService, CourseService courseService, CourseCodeService CourseCodeService,
+                     CodeTypeService codeTypeService, UserDetailsServiceImpl userDetailsService) {
+        this.parentCourseService = parentCourseService;
+        this.courseService = courseService;
+        this.CourseCodeService = CourseCodeService;
+        this.codeTypeService = codeTypeService;
+        this.userDetailsService = userDetailsService;
+
+
         addClassName("admin-view");
         setSizeFull();
         configureGrid();
@@ -37,9 +59,17 @@ public class AdminView extends VerticalLayout {
     }
 
     private void configureGrid() {
+        grid.removeAllColumns();
+
+        grid.addColumn(Course::getId).setHeader("ID");
+        grid.addColumn(Course::getName).setHeader("Name");
+
         grid.addClassNames("admin-grid");
         grid.setSizeFull();
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
+
+        List<Course> courses = courseService.findAllCourses();
+        grid.setItems(courses);
     }
 
     private HorizontalLayout getToolbar() {
@@ -78,13 +108,13 @@ public class AdminView extends VerticalLayout {
     }
 
     private void configureAddCourseForm() {
-        addCourseForm = new AddCourseForm();
+        addCourseForm = new AddCourseForm(parentCourseService, courseService, CourseCodeService, codeTypeService);
         addCourseForm.setWidth("25em");
         addCourseForm.setVisible(false); // Initially hide the form
     }
 
     private void configureAddParentCourseForm() {
-        addParentCourseForm = new AddParentCourseForm();
+        addParentCourseForm = new AddParentCourseForm(parentCourseService, userDetailsService);
         addParentCourseForm.setWidth("25em");
         addParentCourseForm.setVisible(false); // Initially hide the form
     }

@@ -45,7 +45,7 @@ public class CourseCode {
         this.course = course;
 
     }
-    
+
     public LocalDateTime getTime() {
         return time;
     }

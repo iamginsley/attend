@@ -1,12 +1,11 @@
 package com.example.application.service;
 
 import com.example.application.data.Course;
-
-import com.example.application.data.UserCourse;
 import com.example.application.data.CourseCode;
 import com.example.application.data.ParentCourse;
 import com.example.application.repository.CourseRepository;
 import com.example.application.repository.ParentCourseRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +31,18 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
+    public List<Course> findAllCourses(String filter) {
+        if (filter == null || filter.isEmpty()) {
+            return courseRepository.findAll();
+        } else {
+            return courseRepository.findByNameContainingIgnoreCase(filter);
+        }
+    }
+    @Transactional
+    public Course save(Course course) {
+            return courseRepository.saveAndFlush(course);
+    }
+
     public Optional<Course> findCourseById(int id) {
         return courseRepository.findById(id);
     }
@@ -44,6 +55,10 @@ public class CourseService {
         courseRepository.deleteById(id);
     }
 
+    public Course findById(int id) {
+        Optional<Course> course = courseRepository.findById(id);
+        return course.orElse(null);
+    }
     public Course updateCourse(Course course) {
         if (course != null && course.getId() > 0) {
             if (courseRepository.existsById(course.getId())) {
