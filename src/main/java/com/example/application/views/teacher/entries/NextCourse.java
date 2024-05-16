@@ -20,6 +20,8 @@ public class NextCourse extends UserViewEntry {
             this.addSecondRow(new String[]{nextCourse.getName(),"08:30"});
             this.addThirdRow(new String[]{"FHHA | Raum 202"});
             this.addButtonLayout(new CustomButton[] {openViewAllCoursesModalButton()});
+        } else {
+            this.addFirstRow(new String[]{"No course planned"});
         }
     }
 

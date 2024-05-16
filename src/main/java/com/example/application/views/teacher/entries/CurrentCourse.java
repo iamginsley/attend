@@ -14,13 +14,17 @@ public class CurrentCourse extends UserViewEntry {
 
     public CurrentCourse(ParentCourseService parentCourseService, CourseService courseService) {
         super("Current Course", parentCourseService, courseService);
+
         getCurrentCourse();
+
         if (this.currentCourse != null) {
             System.out.println("Current Course: " + currentCourse.getName());
             this.addFirstRow(new String[]{"Management Center Innsbruck"});
             this.addSecondRow(new String[]{currentCourse.getName(), "Total"});
             this.addThirdRow(new String[]{"08:30 - 18:30", "34"});
             this.addButtonLayout(createButtonWithDialog());
+        } else {
+            this.addFirstRow(new String[]{"No current course"});
         }
     }
 

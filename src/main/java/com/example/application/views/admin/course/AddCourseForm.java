@@ -17,12 +17,8 @@ import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.timepicker.TimePicker;
 
-import java.awt.*;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 public class AddCourseForm extends FormLayout {
     private final ParentCourseService parentCourseService;
@@ -53,7 +49,6 @@ public class AddCourseForm extends FormLayout {
 
         addClassName("add-course-form");
         getParentCourses();
-        //save Course
         onSave();
 
         courseName.setRequired(true);
@@ -87,48 +82,27 @@ public class AddCourseForm extends FormLayout {
     }
 
     private void getParentCourses() {
-        //test parent course
         ParentCourse parentCourse = new ParentCourse();
         parentCourse.setName("Math");
         ParentCourse parentCourse1 = new ParentCourse();
         parentCourse1.setName("English");
         ParentCourse parentCourse2 = new ParentCourse();
         parentCourse2.setName("Science");
-        //end test parent course
 
-        //this.parentCourses = List.of(parentCourse, parentCourse1, parentCourse2); //Change this mit DB Access
         this.parentCourses = parentCourseService.findAllCourses();
         this.parentCourse.setItems(this.parentCourses);
         this.parentCourse.setItemLabelGenerator(ParentCourse::getName);
     }
 
     private void getLecturers() {
-        //test parent course
         User user1 = new User();
         user1.setName("Lecturer 1");
         User user2 = new User();
         user2.setName("Lecturer 2");
         User user3 = new User();
         user3.setName("Lecturer 3");
-        //end test parent course
 
-        this.lecturers = List.of(user1, user2, user3); //Change this mit DB Access
-        //this.lecturer.setItems(this.lecturers);
-        //this.lecturer.setItemLabelGenerator(User::getName);
-    }
-
-    private String generateCourseCode(int id) {
-        //generate course code random
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        int codeLength = 9;
-        Random random = new Random();
-
-        StringBuilder code = new StringBuilder(codeLength);
-        for (int i = 0; i < codeLength; i++) {
-            int randomIndex = random.nextInt(characters.length());
-            code.append(characters.charAt(randomIndex));
-        }
-        return code.toString();
+        this.lecturers = List.of(user1, user2, user3);
     }
 
     private void onSave() {
@@ -145,14 +119,9 @@ public class AddCourseForm extends FormLayout {
                 newCourse.setParentCourse(parentCourse.getValue());
                 var createdCourse = courseService.save(newCourse);
 
-                int id = createdCourse.getId();
-
-                String CourseCode = generateCourseCode(id);
-
                 CourseCode courseCodeCheckIn = new CourseCode();
                 courseCodeCheckIn.setCourse(createdCourse);
                 courseCodeCheckIn.setTime(startDateTime);
-                courseCodeCheckIn.setAttendanceCode(CourseCode);
                 courseCodeCheckIn.setTimeOffset(offsetTime.getValue());
                 courseCodeCheckIn.setType(this.codeTypeService.getCodeTypeById(1));
                 courseCodeService.save(courseCodeCheckIn);
@@ -160,7 +129,6 @@ public class AddCourseForm extends FormLayout {
                 CourseCode courseCodeCheckOut = new CourseCode();
                 courseCodeCheckOut.setCourse(createdCourse);
                 courseCodeCheckOut.setTime(endDateTime);
-                courseCodeCheckOut.setAttendanceCode(CourseCode);
                 courseCodeCheckIn.setTimeOffset(offsetTime.getValue());
                 courseCodeCheckOut.setType(this.codeTypeService.getCodeTypeById(2));
                 courseCodeService.save(courseCodeCheckOut);
