@@ -1,5 +1,7 @@
 package com.example.application.views.student;
 
+import com.example.application.service.CourseService;
+import com.example.application.service.ParentCourseService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.abstracts.UserView;
 import com.example.application.views.student.entries.CheckedIn;
@@ -13,13 +15,18 @@ import jakarta.annotation.security.PermitAll;
 @PageTitle("Student | Attend")
 @Route(value = "student-view", layout = MainLayout.class)
 public class StudentView extends UserView {
+
+    public StudentView(ParentCourseService parentCourseService, CourseService courseService) {
+        super(parentCourseService, courseService);
+    }
+
     @Override
     protected HorizontalLayout getUserViewBody() {
         HorizontalLayout bodyLayout = new HorizontalLayout();
 
         bodyLayout.add(
-                new NextCourse(),
-                new CheckedIn()
+                new NextCourse(super.parentCourseService, super.courseService),
+                new CheckedIn(super.parentCourseService, super.courseService)
         );
 
         return bodyLayout;

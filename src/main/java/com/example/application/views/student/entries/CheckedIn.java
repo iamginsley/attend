@@ -2,14 +2,16 @@ package com.example.application.views.student.entries;
 
 import com.example.application.data.Course;
 import com.example.application.data.ParentCourse;
+import com.example.application.service.CourseService;
+import com.example.application.service.ParentCourseService;
 import com.example.application.views.abstracts.UserViewEntry;
 import com.example.application.views.components.CustomButton;
 import com.example.application.views.student.Modal.checkInModal;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
 public class CheckedIn extends UserViewEntry {
-    public CheckedIn() {
-        super("Checked In");
+    public CheckedIn(ParentCourseService parentCourseService, CourseService courseService) {
+        super("Checked In", parentCourseService, courseService);
         addPulsatingCircle();
         this.addFirstRow(new String[]{"Management Center Innsbruck"});
         this.addSecondRow(new String[]{"Software Engineering 2"});

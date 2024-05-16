@@ -1,15 +1,15 @@
 package com.example.application.views.abstracts;
 
+import com.example.application.service.CourseService;
+import com.example.application.service.ParentCourseService;
 import com.example.application.views.components.calendar.CalendarComponent;
 import com.example.application.views.components.calendar.CalendarEvent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -17,8 +17,13 @@ public abstract class UserView extends VerticalLayout {
     protected HorizontalLayout layoutBody;
     protected HorizontalLayout userEntriesLayout;
 
-    public UserView() {
+    protected ParentCourseService parentCourseService;
+    protected CourseService courseService;
+
+    public UserView(ParentCourseService parentCourseService, CourseService courseService) {
         this.addClassName("user-view");
+        this.parentCourseService = parentCourseService;
+        this.courseService = courseService;
 
         this.userEntriesLayout = this.getUserViewBody();
         this.userEntriesLayout.addClassName("user-view-body");
