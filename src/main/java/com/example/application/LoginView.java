@@ -1,4 +1,4 @@
-package com.example.application.views.login;
+package com.example.application;
 
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
@@ -6,13 +6,19 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+@PageTitle("Attend Login")
 @CssImport("./styles/login-styles.css")
 @Route("login")
-public class LoginView extends HorizontalLayout {
+public class LoginView extends HorizontalLayout implements BeforeEnterObserver {
 
     public LoginView() {
         addClassName("login-view-background");
@@ -34,7 +40,6 @@ public class LoginView extends HorizontalLayout {
         VerticalLayout formLayout = new VerticalLayout(loginForm);
         formLayout.addClassName("form-layout");
 
-
         // Footer
         Div footerText = new Div();
         footerText.setText("© 2024 De Java Dev´s");
@@ -50,6 +55,7 @@ public class LoginView extends HorizontalLayout {
     private LoginForm createLoginForm() {
         LoginForm loginForm = new LoginForm();
         loginForm.setId("login-form");
+        loginForm.setAction("login");
         loginForm.setI18n(createLoginI18n());
         return loginForm;
     }
@@ -62,5 +68,18 @@ public class LoginView extends HorizontalLayout {
         i18n.getForm().setSubmit("login");
         i18n.getForm().setForgotPassword("forgot password?");
         return i18n;
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        if (event.getLocation().getQueryParameters().getParameters().containsKey("error")) {
+            showErrorNotification();
+        }
+    }
+
+    private void showErrorNotification() {
+        Notification notification = Notification.show("Falscher Benutzername oder Passwort.");
+        notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+        notification.setPosition(Notification.Position.MIDDLE);
     }
 }
