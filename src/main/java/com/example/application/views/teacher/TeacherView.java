@@ -2,8 +2,11 @@ package com.example.application.views.teacher;
 
 import com.example.application.data.Course;
 import com.example.application.data.ParentCourse;
+import com.example.application.security.SecurityService;
 import com.example.application.service.CodeScanService;
 import com.example.application.service.ParentCourseService;
+import com.example.application.service.UserCourseService;
+import com.example.application.service.UserDetailsServiceImpl;
 import com.example.application.views.MainLayout;
 import com.example.application.views.components.CustomButton;
 import com.example.application.views.abstracts.UserView;
@@ -22,20 +25,22 @@ public class TeacherView extends UserView {
 
     private Course currentCourse;
 
-    public TeacherView(ParentCourseService parentCourseService, CodeScanService codeScanService) {
-        super(parentCourseService, codeScanService);
+    public TeacherView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService) {
+        super(parentCourseService, codeScanService, securityService, userDetailsService, userCourseService);
     }
 
     public void getCurrentCourse() {
-        var parent = super.parentCourseService.findCourseByLecturer(9).get(0);
+        var user = securityService.getAuthenticatedUser();
 
-        this.currentCourse = parent.getChildren().get(0);
+        System.out.println(user);
+
+
     }
 
     @Override
     protected HorizontalLayout getUserViewBody() {
 
-        getCurrentCourse();
+       // getCurrentCourse();
 
         HorizontalLayout bodyLayout = new HorizontalLayout();
 

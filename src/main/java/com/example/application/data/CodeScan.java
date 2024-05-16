@@ -25,23 +25,8 @@ public class CodeScan {
 
     private Date time;
 
-    @Column(name = "userId")
-    private Integer userId;
-
-    @Column(name = "courseId")
-    private Integer courseId;
-
-    @Column(name = "typeId")
-    private Integer typeId;
-
     public CodeScan() {}
 
-    public CodeScan(Integer userId, Integer courseId, Integer typeId, Date time) {
-        this.userId = userId;
-        this.courseId = courseId;
-        this.typeId = typeId;
-        this.time = time;
-    }
 
     public void setStudents(User students) {
         this.students = students;
@@ -75,27 +60,4 @@ public class CodeScan {
         return time;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
-    }
-
-    public Integer getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
 }

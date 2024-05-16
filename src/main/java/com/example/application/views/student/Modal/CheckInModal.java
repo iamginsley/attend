@@ -1,6 +1,5 @@
 package com.example.application.views.student.Modal;
 
-import com.example.application.data.CodeScan;
 import com.example.application.data.Course;
 import com.example.application.data.ParentCourse;
 import com.example.application.service.CodeScanService;
@@ -9,13 +8,15 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 
 import java.util.Date;
 
 @CssImport("./styles/course-modal-styles.css")
-public class checkInModal extends Dialog{
+public class CheckInModal extends Dialog{
     private CustomButton courseLinkButton;
     private ParentCourse parentCourse;
     private Course course;
@@ -23,11 +24,14 @@ public class checkInModal extends Dialog{
 
     private CodeScanService codeScanService;
 
-    public checkInModal(Course course, CodeScanService codeScanService){
+    private Integer userId;
+
+    public CheckInModal(Course course, CodeScanService codeScanService, Integer userId){
         this.codeScanService = codeScanService;
 
         this.course = course;
 
+        this.userId = userId;
 
         setData();
 
@@ -68,12 +72,37 @@ public class checkInModal extends Dialog{
 
         submitButton.addClickListener(event -> {
             // Get the input from the text field
-            String input = codeInput.getValue();
+           try {
+               String input = codeInput.getValue();
 
+               var presentCourseCode =  codeScanService.checkIfValidCode(course.getId(), input);
 
-            codeScanService.insertCodeScan(9,1,1,new Date());
+               if(presentCourseCode == null) {
+                   Notification notification = Notification.show("Invalid Code");
+                   notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+               } else {
 
-            this.close();
+                   var checkedIn = codeScanService.userAlreadyCheckedIn(course.getId(),userId,presentCourseCode.getId());
+
+                   if(checkedIn) {
+                       Notification notification = Notification.show("Already checked In");
+                       notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+                   } else {
+                       codeScanService.insertCodeScan(userId, course.getId(), presentCourseCode.getId(),new Date());
+
+                       Notification notification = Notification.show("Check in Done.");
+                       notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+
+                       this.close();
+                   }
+
+               }
+           } catch (Exception e) {
+               e.printStackTrace();
+
+               Notification notification = Notification.show("Error while check in.");
+               notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+           }
 
         });
 

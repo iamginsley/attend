@@ -1,7 +1,10 @@
 package com.example.application.views.abstracts;
 
+import com.example.application.security.SecurityService;
 import com.example.application.service.CodeScanService;
 import com.example.application.service.ParentCourseService;
+import com.example.application.service.UserCourseService;
+import com.example.application.service.UserDetailsServiceImpl;
 import com.example.application.views.components.calendar.CalendarComponent;
 import com.example.application.views.components.calendar.CalendarEvent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -26,11 +29,20 @@ public abstract class UserView extends VerticalLayout {
 
     protected CodeScanService codeScanService;
 
+    protected SecurityService securityService;
+
+    protected UserDetailsServiceImpl userDetailsService;
+
+    protected UserCourseService userCourseService;
+
     @Autowired
-    public UserView(ParentCourseService parentCourseService, CodeScanService codeScanService) {
+    public UserView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService) {
         this.addClassName("user-view");
         this.parentCourseService = parentCourseService;
         this.codeScanService = codeScanService;
+        this.securityService = securityService;
+        this.userDetailsService = userDetailsService;
+        this.userCourseService = userCourseService;
 
         this.userEntriesLayout = this.getUserViewBody();
         this.userEntriesLayout.addClassName("user-view-body");

@@ -1,8 +1,13 @@
 package com.example.application.views.student;
 
+import com.example.application.data.Course;
 import com.example.application.data.ParentCourse;
+import com.example.application.data.User;
+import com.example.application.security.SecurityService;
 import com.example.application.service.CodeScanService;
 import com.example.application.service.ParentCourseService;
+import com.example.application.service.UserCourseService;
+import com.example.application.service.UserDetailsServiceImpl;
 import com.example.application.views.MainLayout;
 import com.example.application.views.abstracts.UserView;
 import com.example.application.views.student.entries.CheckedIn;
@@ -12,34 +17,45 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
 
+import java.security.Security;
+import java.util.List;
+
 @PermitAll
 @PageTitle("Student | Attend")
 @Route(value = "student-view", layout = MainLayout.class)
 public class StudentView extends UserView {
 
-    private ParentCourse parentCourse;
+    private List<Course> userCourses;
 
-    public StudentView(ParentCourseService parentCourseService, CodeScanService codeScanService) {
-        super(parentCourseService, codeScanService);
+    private User currentUser;
+
+    public StudentView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService) {
+        super(parentCourseService, codeScanService, securityService, userDetailsService, userCourseService);
     }
 
 
-    private void getCourse() {
-        this.parentCourse = parentCourseService.findCourseById(1).get();
+    private void getUserCourses() {
+        var userName = securityService.getAuthenticatedUser().getUsername();
 
-        System.out.println(this.parentCourse.getName());
+        this.currentUser = userDetailsService.getUserIdByEmail(userName);
+
+        this.userCourses = userCourseService.getCoursesByUser(this.currentUser.getId());
     }
 
     @Override
     protected HorizontalLayout getUserViewBody() {
         HorizontalLayout bodyLayout = new HorizontalLayout();
 
-        getCourse();
+        getUserCourses();
 
-        bodyLayout.add(
-                new NextCourse(),
-                new CheckedIn(this.parentCourse,this.codeScanService)
-        );
+        // TODO
+        // bodyLayout.add(
+        //        new NextCourse()
+        //);
+
+        for (Course c : this.userCourses) {
+            bodyLayout.add(new CheckedIn(c, this.currentUser.getId(), this.codeScanService));
+        }
 
         return bodyLayout;
     }

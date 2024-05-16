@@ -3,6 +3,7 @@ package com.example.application.repository;
 import com.example.application.data.CodeScan;
 import com.example.application.data.CodeScanId;
 import jakarta.transaction.Transactional;
+import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +20,8 @@ public interface CodeScanRepository extends JpaRepository<CodeScan, CodeScanId> 
     List<CodeScan> findByStudents_Id(Integer userId);
 
     Optional<CodeScan> findCodeScanByStudents_IdAndCourse_Id(Integer studentId, Integer courseId);
+
+    Optional<CodeScan> findCodeScanByStudents_IdAndCourse_IdAndType_Id(Integer studentId, Integer courseId, Integer typeId);
 
     @Modifying
     @Transactional

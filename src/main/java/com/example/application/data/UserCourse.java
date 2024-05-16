@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "user_course")
+@IdClass(UserCourseId.class)
 public class UserCourse {
+
+
     @Id
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -16,4 +19,8 @@ public class UserCourse {
     private ParentCourse course;
 
     private boolean exempt;
+
+    public ParentCourse getCourse() {
+        return course;
+    }
 }

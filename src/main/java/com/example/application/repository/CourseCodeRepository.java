@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface CourseCodeRepository extends JpaRepository<CourseCode, Long> {
 
    Optional<CourseCode> findCourseCodeByCourse_Id(Integer courseId);
+
+   Optional<CourseCode> findCourseCodeByCourse_IdAndAndAttendanceCode(Integer courseId, String attendanceCode);
 }
