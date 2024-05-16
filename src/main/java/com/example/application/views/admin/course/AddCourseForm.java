@@ -119,9 +119,8 @@ public class AddCourseForm extends FormLayout {
 
     private String generateCourseCode(int id) {
         //generate course code random
-
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        int codeLength = 7;
+        int codeLength = 9;
         Random random = new Random();
 
         StringBuilder code = new StringBuilder(codeLength);
@@ -137,28 +136,21 @@ public class AddCourseForm extends FormLayout {
             if (courseName.getValue() != null && parentCourse.getValue() != null && startDate.getValue() != null
                     && startTime.getValue() != null && endDate.getValue() != null && endTime.getValue() != null
                     && offsetTime.getValue() != null) {
-            // Combine date and time into LocalDateTime
             LocalDateTime startDateTime = LocalDateTime.of(startDate.getValue(), startTime.getValue());
             LocalDateTime endDateTime = LocalDateTime.of(endDate.getValue(), endTime.getValue());
 
-            // Check if startDateTime is before endDateTime
             if (startDateTime.isBefore(endDateTime)) {
                 Course newCourse = new Course();
                 newCourse.setName(courseName.getValue());
                 newCourse.setParentCourse(parentCourse.getValue());
-                newCourse = courseService.save(newCourse);
+                var createdCourse = courseService.save(newCourse);
 
-                Course createdCourse = courseService.findById(newCourse.getId());
-                //get course id
                 int id = createdCourse.getId();
-                //print created course name
-                System.out.println("Course Name: " + createdCourse.getName());
-                System.out.println("Course ID: " + id);
 
                 String CourseCode = generateCourseCode(id);
 
                 CourseCode courseCodeCheckIn = new CourseCode();
-                courseCodeCheckIn.setCourse(courseService.findById(id));
+                courseCodeCheckIn.setCourse(createdCourse);
                 courseCodeCheckIn.setTime(startDateTime);
                 courseCodeCheckIn.setAttendanceCode(CourseCode);
                 courseCodeCheckIn.setTimeOffset(offsetTime.getValue());
@@ -166,7 +158,7 @@ public class AddCourseForm extends FormLayout {
                 courseCodeService.save(courseCodeCheckIn);
 
                 CourseCode courseCodeCheckOut = new CourseCode();
-                courseCodeCheckOut.setCourse(courseService.findById(id));
+                courseCodeCheckOut.setCourse(createdCourse);
                 courseCodeCheckOut.setTime(endDateTime);
                 courseCodeCheckOut.setAttendanceCode(CourseCode);
                 courseCodeCheckIn.setTimeOffset(offsetTime.getValue());
@@ -174,7 +166,7 @@ public class AddCourseForm extends FormLayout {
                 courseCodeService.save(courseCodeCheckOut);
 
                 Notification.show("New course saved successfully");
-                //clear all fields
+
                 courseName.clear();
                 parentCourse.clear();
                 startDate.clear();

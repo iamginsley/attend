@@ -12,12 +12,12 @@ import java.util.Date;
 @IdClass(CourseCodeId.class)
 public class CourseCode {
     @Id
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "courseId")
     private Course course;
 
     @Id
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "type")
     private CodeType type;
 
