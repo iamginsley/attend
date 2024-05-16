@@ -63,6 +63,12 @@ public class CodeScanService {
         return codeScanRepository.findCodeScanByStudents_IdAndCourse_Id(studentId, courseId);
     }
 
+    public boolean isUserCheckedIn(Integer studentId, Integer courseId) {
+        var t = codeScanRepository.findCodeScansByStudents_IdAndCourse_Id(studentId, courseId);
+
+        return !t.isEmpty();
+    }
+
     public void insertCodeScan(Integer userId, Integer courseId, Integer typeId, Date time) {
         // Call the repository method to insert the record
         codeScanRepository.insertCodeScan(userId, courseId, typeId, time);

@@ -23,6 +23,8 @@ public interface CodeScanRepository extends JpaRepository<CodeScan, CodeScanId> 
 
     Optional<CodeScan> findCodeScanByStudents_IdAndCourse_IdAndType_Id(Integer studentId, Integer courseId, Integer typeId);
 
+    List<CodeScan> findCodeScansByStudents_IdAndCourse_Id(Integer studentId, Integer courseId);
+
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO code_scan (userId, courseId, type, time) VALUES (:userId, :courseId, :typeId, :time)", nativeQuery = true)

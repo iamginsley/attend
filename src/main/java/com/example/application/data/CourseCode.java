@@ -10,7 +10,7 @@ import java.util.Date;
 public class CourseCode {
     @Id
     @ManyToOne
-    @JoinColumn(name = "courseId", unique = true)
+    @JoinColumn(name = "courseId")
     private Course course;
 
     @Id

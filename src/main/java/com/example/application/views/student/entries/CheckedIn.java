@@ -33,10 +33,10 @@ public class CheckedIn extends UserViewEntry {
 
     private void addPulsatingCircle() {
 
-        var t = codeScanService.getCodeScanByStudentAndUser(userId,course.getId());
+        var checkedIn = codeScanService.isUserCheckedIn(userId,course.getId());
 
         HorizontalLayout pulsatingCircle = new HorizontalLayout();
-        pulsatingCircle.addClassNames("pulsating-circle", t.isPresent() ? "true" : "false");
+        pulsatingCircle.addClassNames("pulsating-circle", checkedIn ? "true" : "false");
         setTopRightCornerContent(pulsatingCircle);
     }
 
