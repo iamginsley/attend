@@ -1,6 +1,8 @@
 package com.example.application.views.teacher.modal;
 import com.example.application.data.Course;
 import com.example.application.data.ParentCourse;
+import com.example.application.service.ParentCourseService;
+import com.example.application.service.UserService;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 
@@ -10,7 +12,9 @@ import java.util.List;
 public class ViewAllCoursesModal extends Dialog {
     private final List<Course> courses = new ArrayList<>();
 
-    public ViewAllCoursesModal(List<ParentCourse> courses) {
+    public ViewAllCoursesModal(ParentCourseService parentCourseService, UserService userService) {
+        List<ParentCourse> courses = parentCourseService.findCourseByLecturer(userService.getUserId());
+
         for (ParentCourse course : courses) {
             this.courses.addAll(course.getChildren());
         }
@@ -30,7 +34,11 @@ public class ViewAllCoursesModal extends Dialog {
         grid.addClassName("teacher-modal-courses-grid");
         grid.setSizeFull();
         grid.setItems(this.courses);
-        grid.setColumns("name");
+        grid.removeAllColumns();
+        grid.addColumn("name").setHeader("Course Name");
+        grid.addColumn(course -> course.getParentCourse().getName()).setHeader("Parent Course");
+        grid.addColumn(course -> course.getParentCourse().getLecturer().getFullName()).setHeader("Lecturer");
+        grid.addColumn(course -> course.getParentCourse().getFaculty().getName()).setHeader("Faculty");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         this.add(grid);

@@ -22,11 +22,13 @@ import java.util.Random;
 public class QRCodeGenerator {
 
     private final Image qrCodeImage;
+    private String code = "";
 
-    public QRCodeGenerator(String courseId, String type, int width, int height) {
+    public QRCodeGenerator(int courseId, int type, int width, int height) {
         qrCodeImage = new Image();
+        generateCourseQRCode(courseId, type);
         try {
-            generateQRCodeImage(generateCourseQRCode(courseId, type), width, height);
+            generateQRCodeImage(this.code, width, height);
         } catch (WriterException | IOException e) {
             System.out.println("Could not generate QR Code: " + e.getMessage());
         }
@@ -36,7 +38,11 @@ public class QRCodeGenerator {
         return qrCodeImage;
     }
 
-    private String generateCourseQRCode(String courseId, String type) {
+    public String getCode() {
+        return code;
+    }
+
+    private void generateCourseQRCode(int courseId, int type) {
         //generate course code random
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         int codeLength = 6;
@@ -47,7 +53,8 @@ public class QRCodeGenerator {
             int randomIndex = random.nextInt(characters.length());
             code.append(characters.charAt(randomIndex));
         }
-        return courseId + "-" + type + "-" + code;
+
+        this.code = courseId + "-" + type + "-" + code;
     }
 
     private void generateQRCodeImage(String text, int width, int height)
