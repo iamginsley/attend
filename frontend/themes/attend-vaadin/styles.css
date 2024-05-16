@@ -310,6 +310,90 @@ vaadin-app-layout::part(navbar) {
 }
 
 
+
+
+
+.calendar-component-wrapper {
+    height: 35rem;
+    overflow-y: auto;
+    align-items: end;
+}
+
+.calendar-component-wrapper::-webkit-scrollbar {
+    width: 11px;
+}
+
+.calendar-component-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.calendar-component-wrapper::-webkit-scrollbar-thumb {
+    background: #888;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+
+/* Handle on hover */
+.calendar-component-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.user-view-calendar {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar-item {
+    box-sizing: border-box !important;
+    background-color: white;
+    flex-direction: row;
+    border-radius: 16px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    justify-content: space-around;
+    width: 95% !important;
+    transition: all .3s  ease !important;
+    filter: grayscale(1);
+
+}
+
+.calendar-item:hover {
+    border: 2px solid #EF9B5F;
+    width: 100% !important;
+    filter: none
+}
+
+
+.event-info {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.date-card {
+    background: #EF9B5F;
+    font-weight: 700;
+    font-size: 1.8em;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.time-container {
+    margin-bottom: 14px;
+}
+
+.time-entry {
+   &:not(:first-child) {
+    border-left: 2px solid;
+    border-color:#EF9B5F;
+    padding-left: 10px;
+   }
+}
+
 @media(max-width: 480px){
     .user-view-layout{
         flex-direction: column;
@@ -376,67 +460,66 @@ vaadin-app-layout::part(navbar) {
     .hello-title{
         font-size: 16px;
     }
+    .calendar-component-wrapper{
+        padding: 0;
+        overflow: scroll;
+        padding-right: 10px;
+    }
+
+    .calendar-component-wrapper::-webkit-scrollbar {
+        width:5px;
+    }
+
+    .calendar-component-wrapper::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .calendar-component-wrapper::-webkit-scrollbar-thumb {
+        background: #888;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+    }
+
+    .calendar-component-wrapper::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    .calendar-item{
+        width: 100% !important;
+    }
+    .event-card.date-card{
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+        width: 60px;
+        height: 100%;
+    }
+    .date-card .day{
+        font-size: 20px;
+    }
+    .date-card .month{
+        font-size: 11px;
+    }
+    .time-entry{
+        font-size: 12px;
+    }
+    .time-entry div:first-child{
+        font-weight: 700;
+    }
+    .time-container{
+        margin-bottom: 5px;
+    }
+    .calendar-item:not(:hover){
+        -webkit-transform: scale(0.9);
+        -moz-transform: scale(0.9);
+        -ms-transform: scale(0.9);
+        -o-transform: scale(0.9);
+        transform: scale(0.9);
+        transform-origin: right center;
+    }
+    .time-container .description{
+        font-weight: 500;
+        font-size: 11px;
+    }
 }
-
-
-.calendar-component-wrapper {
-    height: 35rem;
-    overflow-y: auto;
-    align-items: end;
-}
-
-.user-view-calendar {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.calendar-item {
-    box-sizing: border-box;
-    background-color: white;
-    flex-direction: row;
-    border-radius: 16px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-    justify-content: space-around;
-    width: 95% !important;
-    transition: all .5s  ease;
-    filter: grayscale(1);
-
-}
-
-.calendar-item:hover {
-    border: 2px solid #EF9B5F;
-    width: 100% !important;
-    filter: none
-}
-
-
-.event-info {
-    align-items: center;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-}
-
-.date-card {
-    background: #EF9B5F;
-    font-weight: 700;
-    font-size: 1.8em;
-    color: white;
-    display: flex;
-    flex-direction: column;
-}
-
-.time-container {
-    margin-bottom: 14px;
-}
-
-.time-entry {
-   &:not(:first-child) {
-    border-left: 2px solid;
-    border-color:#EF9B5F;
-    padding-left: 10px;
-   }
-}
-

@@ -11,10 +11,12 @@ import com.example.application.views.teacher.entries.CurrentCourse;
 import com.example.application.views.teacher.entries.NextCourse;
 import com.example.application.views.teacher.modal.ViewAllCoursesModal;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
 
 @PermitAll
+@PageTitle("Teacher | Attend")
 @Route(value = "teacher-view", layout = MainLayout.class)
 public class TeacherView extends UserView {
 
