@@ -2,6 +2,7 @@ package com.example.application.views;
 
 import com.example.application.security.SecurityService;
 import com.example.application.views.abstracts.UserView;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.contextmenu.ContextMenu;
 import com.vaadin.flow.component.html.H1;
@@ -10,11 +11,17 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.flow.router.RouterLink;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Collection;
 
+@PermitAll
+@Route("")
 public class MainLayout extends AppLayout {
 
     private final SecurityService securityService;
@@ -23,6 +30,26 @@ public class MainLayout extends AppLayout {
     public MainLayout(SecurityService securityService) {
         this.securityService = securityService;
         createHeader();
+        String User = this.securityService.getAuthenticatedUser().getUsername();
+        //get User role
+        Collection<? extends GrantedAuthority> roles = this.securityService.getAuthenticatedUser().getAuthorities();
+        //get Role at index 0
+        String role = roles.iterator().next().getAuthority();
+        System.out.println("User: " + User + " Role: " + role);
+
+        if (role.equals("admin") && VaadinSession.getCurrent().getAttribute("adminViewLoaded") == null) {
+            UI.getCurrent().navigate("admin-view");
+            UI.getCurrent().getPage().executeJs("setTimeout(function(){ location.reload(); }, 1000);");
+            VaadinSession.getCurrent().setAttribute("adminViewLoaded", true);
+        } else if (role.equals("student") && VaadinSession.getCurrent().getAttribute("studentViewLoaded") == null) {
+            UI.getCurrent().navigate("student-view");
+            UI.getCurrent().getPage().executeJs("setTimeout(function(){ location.reload(); }, 1000);");
+            VaadinSession.getCurrent().setAttribute("studentViewLoaded", true);
+        } else if (role.equals("lecturer") && VaadinSession.getCurrent().getAttribute("teacherViewLoaded") == null) {
+            UI.getCurrent().navigate("teacher-view");
+            UI.getCurrent().getPage().executeJs("setTimeout(function(){ location.reload(); }, 1000);");
+            VaadinSession.getCurrent().setAttribute("teacherViewLoaded", true);
+        }
     }
 
     private void createHeader() {
