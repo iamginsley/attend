@@ -1,7 +1,6 @@
 package com.example.application.views.abstracts;
 
-import com.example.application.service.CourseService;
-import com.example.application.service.ParentCourseService;
+import com.example.application.service.*;
 import com.example.application.views.components.CustomButton;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
@@ -11,6 +10,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 public abstract class UserViewEntry extends VerticalLayout {
     protected final CourseService courseService;
     protected final ParentCourseService parentCourseService;
+    protected final CourseCodeService courseCodeService;
+    protected final CodeScanService codeScanService;
+    protected final UserService userService;
 
     private final String headerText;
 
@@ -22,10 +24,13 @@ public abstract class UserViewEntry extends VerticalLayout {
 
     private final HorizontalLayout buttonLayout = new HorizontalLayout();
 
-    public UserViewEntry(String headerText, ParentCourseService parentCourseService, CourseService courseService ) {
+    public UserViewEntry(String headerText, ParentCourseService parentCourseService, CourseService courseService, CourseCodeService courseCodeService, CodeScanService codeScanService, UserService userService) {
         this.headerText = headerText;
         this.courseService = courseService;
         this.parentCourseService = parentCourseService;
+        this.courseCodeService = courseCodeService;
+        this.codeScanService = codeScanService;
+        this.userService = userService;
 
         this.addClassName("user-view-entry");
 

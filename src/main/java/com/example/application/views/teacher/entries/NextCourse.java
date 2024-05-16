@@ -1,8 +1,7 @@
 package com.example.application.views.teacher.entries;
 
 import com.example.application.data.Course;
-import com.example.application.service.CourseService;
-import com.example.application.service.ParentCourseService;
+import com.example.application.service.*;
 import com.example.application.views.abstracts.UserViewEntry;
 import com.example.application.views.components.CustomButton;
 import com.example.application.views.teacher.modal.ViewAllCoursesModal;
@@ -10,14 +9,18 @@ import com.example.application.views.teacher.modal.ViewAllCoursesModal;
 public class NextCourse extends UserViewEntry {
     private Course nextCourse;
 
-    public NextCourse(ParentCourseService parentCourseService, CourseService courseService) {
-        super("Next Course", parentCourseService, courseService);
+    public NextCourse(ParentCourseService parentCourseService, CourseService courseService, CourseCodeService courseCodeService, CodeScanService codeScanService, UserService userService) {
+        super("Next Course", parentCourseService, courseService, courseCodeService, codeScanService, userService);
 
         getNextCourse();
 
         if (this.nextCourse != null) {
-            this.addFirstRow(new String[]{"Fachhochschule Hagenberg", "07.05.2024"});
-            this.addSecondRow(new String[]{nextCourse.getName(),"08:30"});
+            String startDate = super.courseService.getCourseTimeDate(this.nextCourse.getId(), "check-in");
+            this.addFirstRow(new String[]{nextCourse.getParentCourse().getFaculty().getName(), startDate});
+
+            String startTime = super.courseService.getCourseTimeTime(this.nextCourse.getId(), "check-in");
+            this.addSecondRow(new String[]{nextCourse.getName(),startTime});
+
             this.addThirdRow(new String[]{"FHHA | Raum 202"});
             this.addButtonLayout(new CustomButton[] {openViewAllCoursesModalButton()});
         } else {
@@ -32,8 +35,7 @@ public class NextCourse extends UserViewEntry {
     private CustomButton openViewAllCoursesModalButton() {
         CustomButton openModalButton = new CustomButton("View all");
         openModalButton.addClickListener(e -> {
-            var courses = parentCourseService.findCourseByLecturer(2);
-            ViewAllCoursesModal viewAllCoursesModal = new ViewAllCoursesModal(courses);
+            ViewAllCoursesModal viewAllCoursesModal = new ViewAllCoursesModal(super.parentCourseService, super.userService);
             viewAllCoursesModal.open();
         });
         return openModalButton;

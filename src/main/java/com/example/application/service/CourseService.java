@@ -5,11 +5,11 @@ import com.example.application.data.CourseCode;
 import com.example.application.data.ParentCourse;
 import com.example.application.repository.CourseRepository;
 import com.example.application.repository.ParentCourseRepository;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -160,7 +160,8 @@ public class CourseService {
         return null;
     }
 
-    public String getCourseTime(int courseId, String type) {
+    @Transactional(readOnly = true)
+    public String getCourseTime(int courseId, String type, String format) {
         if (!(type.equals("check-in") || type.equals("check-out"))) {
             return "";
         }
@@ -183,10 +184,31 @@ public class CourseService {
             return "";
         }
 
-        return startEntry.getTime().toString();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+
+
+        return startEntry.getTime().format(formatter);
+    }
+
+    @Transactional
+    public String getCourseTimeDate(int courseId, String type) {
+        return this.getCourseTime(courseId, type, "dd/MM/yyyy");
+    }
+
+    @Transactional
+    public String getCourseTimeTime(int courseId, String type) {
+        return this.getCourseTime(courseId, type, "HH:mm");
     }
 
     public List<Course> getCoursesByParentId(Integer id) {
         return this.courseRepository.getCoursesByParentCourse_Id(id);
+    }
+
+    @Transactional
+    public int getCourseSize(int courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Course not found"));
+        // Force initialization of the collection
+        return course.getParentCourse().getStudents().stream().filter(s -> s.getRole().getId() == 2).toList().size();
     }
 }

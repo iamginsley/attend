@@ -1,17 +1,12 @@
 package com.example.application.views.abstracts;
 
 import com.example.application.security.SecurityService;
-import com.example.application.service.CodeScanService;
-import com.example.application.service.UserCourseService;
-import com.example.application.service.UserDetailsServiceImpl;
-import com.example.application.service.CourseService;
-import com.example.application.service.ParentCourseService;
+import com.example.application.service.*;
 import com.example.application.views.components.calendar.CalendarComponent;
 import com.example.application.views.components.calendar.CalendarEvent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -37,16 +32,31 @@ public abstract class UserView extends VerticalLayout {
 
     protected CourseService courseService;
 
+    protected CourseCodeService courseCodeService;
+
+    protected UserService userService;
+
 
     @Autowired
-    public UserView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService, CourseService courseService) {
-        this.addClassName("user-view");
+    public UserView(
+            ParentCourseService parentCourseService,
+            CodeScanService codeScanService,
+            SecurityService securityService,
+            UserDetailsServiceImpl userDetailsService,
+            UserCourseService userCourseService,
+            CourseService courseService,
+            CourseCodeService courseCodeService,
+            UserService userService) {
         this.parentCourseService = parentCourseService;
         this.codeScanService = codeScanService;
         this.securityService = securityService;
         this.userDetailsService = userDetailsService;
         this.userCourseService = userCourseService;
         this.courseService = courseService;
+        this.courseCodeService = courseCodeService;
+        this.userService = userService;
+
+        this.addClassName("user-view");
 
         this.userEntriesLayout = this.getUserViewBody();
         this.userEntriesLayout.addClassName("user-view-body");

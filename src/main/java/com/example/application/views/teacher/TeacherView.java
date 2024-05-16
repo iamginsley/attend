@@ -16,8 +16,8 @@ import jakarta.annotation.security.PermitAll;
 @Route(value = "teacher-view", layout = MainLayout.class)
 public class TeacherView extends UserView {
 
-    public TeacherView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService, CourseService courseService) {
-        super(parentCourseService, codeScanService, securityService,userDetailsService,userCourseService,courseService);
+    public TeacherView(ParentCourseService parentCourseService, CodeScanService codeScanService, SecurityService securityService, UserDetailsServiceImpl userDetailsService, UserCourseService userCourseService, CourseService courseService, CourseCodeService courseCodeService, UserService userService) {
+        super(parentCourseService, codeScanService, securityService,userDetailsService,userCourseService,courseService, courseCodeService, userService);
     }
 
     @Override
@@ -28,8 +28,8 @@ public class TeacherView extends UserView {
         HorizontalLayout bodyLayout = new HorizontalLayout();
 
         bodyLayout.add(
-                new CurrentCourse(super.parentCourseService, super.courseService),
-                new NextCourse(super.parentCourseService, super.courseService)
+                new CurrentCourse(super.parentCourseService, super.courseService, super.courseCodeService, super.codeScanService, userService),
+                new NextCourse(super.parentCourseService, super.courseService, super.courseCodeService, super.codeScanService, userService)
         );
 
         return bodyLayout;

@@ -1,10 +1,7 @@
 package com.example.application.views.student.entries;
 
 import com.example.application.data.Course;
-import com.example.application.data.ParentCourse;
-import com.example.application.service.CodeScanService;
-import com.example.application.service.CourseService;
-import com.example.application.service.ParentCourseService;
+import com.example.application.service.*;
 import com.example.application.views.abstracts.UserViewEntry;
 import com.example.application.views.components.CustomButton;
 import com.example.application.views.student.Modal.CheckInModal;
@@ -12,13 +9,13 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
 public class CheckedIn extends UserViewEntry {
 
-    private CodeScanService codeScanService;
+    private final CodeScanService codeScanService;
 
-    private Integer userId;
-    private Course course;
+    private final Integer userId;
+    private final Course course;
 
-    public CheckedIn(Course course, Integer userId, CodeScanService codeScanService, CourseService courseService, ParentCourseService parentCourseService) {
-        super("Checked In", parentCourseService, courseService);
+    public CheckedIn(Course course, Integer userId, CodeScanService codeScanService, CourseService courseService, ParentCourseService parentCourseService, CourseCodeService courseCodeService, UserService userService) {
+        super("Checked In", parentCourseService, courseService, courseCodeService, codeScanService,userService);
 
         this.codeScanService = codeScanService;
         this.course = course;
