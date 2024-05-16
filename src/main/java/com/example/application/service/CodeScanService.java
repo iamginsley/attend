@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,5 +51,14 @@ public class CodeScanService {
 
     public List<CodeScan> getCodeScansByUserId(Integer userId) {
         return codeScanRepository.findByStudents_Id(userId);
+    }
+
+    public Optional<CodeScan> getCodeScanByStudentAndUser(Integer studentId, Integer courseId) {
+        return codeScanRepository.findCodeScanByStudents_IdAndCourse_Id(studentId, courseId);
+    }
+
+    public void insertCodeScan(Integer userId, Integer courseId, Integer typeId, Date time) {
+        // Call the repository method to insert the record
+        codeScanRepository.insertCodeScan(userId, courseId, typeId, time);
     }
 }

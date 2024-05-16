@@ -1,10 +1,14 @@
 package com.example.application.views.abstracts;
 
+import com.example.application.service.CodeScanService;
+import com.example.application.service.ParentCourseService;
 import com.example.application.views.components.calendar.CalendarComponent;
 import com.example.application.views.components.calendar.CalendarEvent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,12 +17,20 @@ import java.util.Date;
 import java.util.List;
 
 
+@Component
 public abstract class UserView extends VerticalLayout {
     protected HorizontalLayout layoutBody;
     protected HorizontalLayout userEntriesLayout;
 
-    public UserView() {
+    protected ParentCourseService parentCourseService;
+
+    protected CodeScanService codeScanService;
+
+    @Autowired
+    public UserView(ParentCourseService parentCourseService, CodeScanService codeScanService) {
         this.addClassName("user-view");
+        this.parentCourseService = parentCourseService;
+        this.codeScanService = codeScanService;
 
         this.userEntriesLayout = this.getUserViewBody();
         this.userEntriesLayout.addClassName("user-view-body");
@@ -27,6 +39,7 @@ public abstract class UserView extends VerticalLayout {
         this.layoutBody.addClassName("user-view-layout");
         this.layoutBody.setSizeFull();
         this.layoutBody.setFlexGrow(1, this.userEntriesLayout);
+
 
         add(this.layoutBody);
     }

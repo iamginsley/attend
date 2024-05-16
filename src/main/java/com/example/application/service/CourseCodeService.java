@@ -5,6 +5,7 @@ import com.example.application.repository.CourseCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +41,9 @@ public class CourseCodeService {
         courseCodeRepository.delete(courseCode);
     }
 
-    public CourseCode getCourseCodeByCourseId(Integer id) {
-        return courseCodeRepository.findCourseCodeByCourse_Id(id).orElseThrow(() -> new RuntimeException("CourseCode not found for this id :: " + id));
+    public Optional<CourseCode> getCourseCodeByCourseId(Integer id) {
+        return courseCodeRepository.findCourseCodeByCourse_Id(id);
     }
+
+
 }

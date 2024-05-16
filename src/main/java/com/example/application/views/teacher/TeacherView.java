@@ -1,5 +1,8 @@
 package com.example.application.views.teacher;
 
+import com.example.application.data.Course;
+import com.example.application.data.ParentCourse;
+import com.example.application.service.CodeScanService;
 import com.example.application.service.ParentCourseService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.components.CustomButton;
@@ -14,14 +17,24 @@ import jakarta.annotation.security.PermitAll;
 @PermitAll
 @Route(value = "teacher-view", layout = MainLayout.class)
 public class TeacherView extends UserView {
-    private final ParentCourseService parentCourseService;
 
-    public TeacherView(ParentCourseService parentCourseService) {
-        this.parentCourseService = parentCourseService;
+    private Course currentCourse;
+
+    public TeacherView(ParentCourseService parentCourseService, CodeScanService codeScanService) {
+        super(parentCourseService, codeScanService);
+    }
+
+    public void getCurrentCourse() {
+        var parent = super.parentCourseService.findCourseByLecturer(9).get(0);
+
+        this.currentCourse = parent.getChildren().get(0);
     }
 
     @Override
     protected HorizontalLayout getUserViewBody() {
+
+        getCurrentCourse();
+
         HorizontalLayout bodyLayout = new HorizontalLayout();
 
         bodyLayout.add(

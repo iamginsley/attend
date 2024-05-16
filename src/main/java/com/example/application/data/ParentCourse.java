@@ -2,6 +2,7 @@ package com.example.application.data;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,7 +22,7 @@ public class ParentCourse {
     private User lecturer;
 
     @OneToMany(mappedBy = "parentCourse")
-    private Set<Course> children;
+    private List<Course> children;
 
     public Faculty getFaculty() {
         return faculty;
@@ -39,11 +40,11 @@ public class ParentCourse {
         this.lecturer = lecturer;
     }
 
-    public Set<Course> getChildren() {
+    public List<Course> getChildren() {
         return children;
     }
 
-    public void setChildren(Set<Course> children) {
+    public void setChildren(List<Course> children) {
         this.children = children;
     }
 
