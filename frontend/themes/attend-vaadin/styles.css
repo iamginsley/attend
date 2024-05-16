@@ -300,6 +300,24 @@ vaadin-app-layout::part(navbar) {
         opacity: 1;
     }
 }
+.slick-next,
+.slick-prev{
+    margin: 50px auto 0;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    display: block;
+}
+.slick-prev{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    margin: 0 auto 50px;
+}
 
 .user-view-entry-button-layout {
     width: 100%;
@@ -315,8 +333,8 @@ vaadin-app-layout::part(navbar) {
 
 .calendar-component-wrapper {
     height: 35rem;
-    overflow-y: auto;
     align-items: end;
+    display: block;
 }
 
 .calendar-component-wrapper::-webkit-scrollbar {
@@ -343,7 +361,7 @@ vaadin-app-layout::part(navbar) {
     width: 50%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 
 .calendar-item {
@@ -358,13 +376,20 @@ vaadin-app-layout::part(navbar) {
     filter: grayscale(1);
 
 }
-
-.calendar-item:hover {
-    border: 2px solid #EF9B5F;
-    width: 100% !important;
-    filter: none
+.calendar-item.slick-slide{
+    display: flex;
+    margin-top: 20px;
 }
 
+.calendar-item.slick-active.slick-current {
+    border: 2px solid #EF9B5F;
+    width: 100% !important;
+    filter: none;
+    box-shadow: 0 0px 8px #EF9B5F;
+}
+.slick-list.draggable{
+    padding: 20px 0;
+}
 
 .event-info {
     align-items: center;
@@ -462,7 +487,7 @@ vaadin-app-layout::part(navbar) {
     }
     .calendar-component-wrapper{
         padding: 0;
-        overflow: scroll;
+        overflow-y: hidden;
         padding-right: 10px;
     }
 
@@ -490,10 +515,17 @@ vaadin-app-layout::part(navbar) {
     .event-card.date-card{
         justify-content: center;
         align-items: center;
-        padding: 0;
+        padding: 10px 0;
         margin: 0;
         width: 60px;
         height: 100%;
+    }
+    .slick-next,
+    .slick-prev {
+        margin: 20px auto 0;
+    }
+    .slick-prev{
+        margin: 0 auto 20px;
     }
     .date-card .day{
         font-size: 20px;
@@ -510,16 +542,19 @@ vaadin-app-layout::part(navbar) {
     .time-container{
         margin-bottom: 5px;
     }
-    .calendar-item:not(:hover){
+    .calendar-item:not(.slick-active.slick-current){
         -webkit-transform: scale(0.9);
         -moz-transform: scale(0.9);
         -ms-transform: scale(0.9);
         -o-transform: scale(0.9);
         transform: scale(0.9);
-        transform-origin: right center;
+        transform-origin: center;
     }
     .time-container .description{
         font-weight: 500;
         font-size: 11px;
+    }
+    .calendar-item.slick-slide{
+        margin-top: 0;
     }
 }
