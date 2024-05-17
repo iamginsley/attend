@@ -29,7 +29,7 @@ public class NextCourse extends UserViewEntry {
     }
 
     private void getNextCourse() {
-        this.nextCourse = super.courseService.getNextCourseByLecturerIdTest(6);
+        this.nextCourse = super.courseService.getNextCourseByLecturerIdTest(super.userService.getUserId());
     }
 
     private CustomButton openViewAllCoursesModalButton() {
