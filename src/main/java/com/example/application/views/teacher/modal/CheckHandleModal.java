@@ -55,8 +55,8 @@ public class CheckHandleModal extends Dialog {
         if (courseCode != null) {
             setData();
 
-            setWidth("50%");
-            setHeight("50%");
+            setWidth("100%");
+            setHeight("100%");
 
             setLayout();
         } else {
@@ -114,6 +114,7 @@ public class CheckHandleModal extends Dialog {
         HorizontalLayout detailsRow = new HorizontalLayout();
         detailsRow.addClassName("stats-layout");
         VerticalLayout details = new VerticalLayout();
+        details.addClassName("stats-details");
         details.add(new Span(this.totalStudents + " Total"), new Span(this.absentStudents + " Absent"), new Span(this.checkedInStudents + " Checked in"));
         detailsRow.add(attendance);
         detailsRow.add(details);

@@ -376,9 +376,45 @@ vaadin-app-layout::part(navbar) {
     filter: grayscale(1);
 
 }
+.time-info{
+    width: fit-content !important;
+    font-weight: 600;
+    font-size: 20px;
+    justify-content: center;
+}
+.stats-details{
+    font-weight: 700;
+    font-size: 23px;
+    padding: 0;
+}
+.attendance-info{
+    font-size: 30px;
+    font-weight: 700;
+    padding: 0;
+}
+.stats-layout{
+    padding: 50px;
+}
+.qr-and-time-layout{
+    height: 50%;
+    align-content: center;
+    padding-bottom: 50px;
+}
+
+[part="content"]
+{
+    padding:0 !important;
+}
+.stats-layout{
+    height: 50%;
+}
 .calendar-item.slick-slide{
     display: flex;
     margin-top: 20px;
+}
+.course-modal-container{
+    justify-content: space-between;
+    background: linear-gradient(to top, #EF9B5F 0%, #EF9B5F 50%, white 55%, white 55%);
 }
 
 .calendar-item.slick-active.slick-current {
