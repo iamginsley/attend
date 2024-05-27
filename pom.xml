@@ -45,6 +45,10 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>google-cloud-sql-maven</id>
+            <url>https://artifactregistry.googleapis.com/artifacts/{YOUR_PROJECT_ID}/maven</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -107,6 +111,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
             <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.cloud.sql</groupId>
+            <artifactId>mysql-socket-factory</artifactId>
+            <version>1.8.0</version>
         </dependency>
 
         <dependency>
