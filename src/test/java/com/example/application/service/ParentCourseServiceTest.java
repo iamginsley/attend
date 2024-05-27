@@ -29,10 +29,18 @@ class ParentCourseServiceTest {
     @BeforeEach
     void setUp() {
         Role role = new Role();
+        role.setId(1);
 
         this.lecturer = new User();
+        this.lecturer.setUsername("johndoe");
+        this.lecturer.setName("John");
+        this.lecturer.setSurname("Doe");
+        this.lecturer.setEmail("test@test.com");
+        this.lecturer.setPassword("password");
+        this.lecturer.setRole(role);
 
         this.faculty = new Faculty();
+        this.faculty.setName("Test Faculty");
 
     }
 
