@@ -52,4 +52,5 @@ jobs:
             --image ${{ env.IMAGE }} \
             --platform managed \
             --region ${{ env.REGION }} \
-            --allow-unauthenticated
+            --allow-unauthenticated \
+            --set-env-vars DB_HOST=${{ secrets.DB_HOST }},DB_USER=${{ secrets.DB_USER }},DB_PASSWORD=${{ secrets.DB_PASSWORD }}
